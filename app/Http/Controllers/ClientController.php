@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-    /**
-     * Display a listing of txhe resource.
-     */
+
     public function index()
     {
         $clientsList = Clients::all();
@@ -17,58 +15,73 @@ class ClientController extends Controller
         return view('clients/list', compact('clientsList'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'username' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'telephone' => 'required',
+            'adresse' => 'required',
+            'mensurations' => 'required',
+            'genre' => 'required'
+
+        ]);
+
+        $client = Clients::create([
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => $request->password,
+            'telephone' => $request->telephone,
+            'adresse' => $request->adresse,
+            'mensurations' => $request->mensurations,
+            'genre' => $request->genre,
+            'etat' => 1,
+        ]);
+        return redirect()->route('clients.list')->with('success', "Vous avez bien inscrit le client avec l'ID " . $client->id);
+
+    }
+
     public function create()
     {
         return view('clients/create');
-
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function edit(Clients $client)
     {
-        //
+
+        return view('clients.edit', compact('client'));
+
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function update(Request $request, Clients $client)
     {
-        //
+        $request->validate([
+            "username" => "required",
+            "email" => "required",
+            "password" => "required",
+            "telephone" => "required",
+            "adresse" => "required",
+            "etat" => "required",
+        ]);
+
+        // Utilisez la méthode update pour mettre à jour le modèle directement
+        $client->update($request->all());
+
+        // Redirigez vers la page de liste des étudiants avec un message de succès
+        return redirect()->route('clients.list')
+            ->with('success', "Le client avec l'ID " . $client->id . "a été mis à jour avec succès.");
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function delete(Clients $client)
     {
-        //
+        $client->delete();
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 
     public function filter(Request $request)
     {
-        $clientsList = Clients::filterBy($request->username, $request->email, $request->genre, $request->statut);
+        $clientsList = Clients::filterBy($request->username, $request->email, $request->genre, $request->etat);
 
         return view('clients.list', compact('clientsList'));
     }

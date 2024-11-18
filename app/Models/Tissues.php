@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Tissues extends ElementRobes
 {
@@ -23,5 +24,10 @@ class Tissues extends ElementRobes
 
 
         return $query->paginate(10);
+    }
+
+    public function imageUrl(): string {
+        //Generer l'url de l'image
+        return Storage::url($this->imagePath);
     }
 }

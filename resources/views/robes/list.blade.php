@@ -7,13 +7,22 @@
                 @csrf
                 <div class="form-group col-sm-6 col-md-2 me-2">
                     <label style="color: white" for="dateInsertion">Date:</label>
-                    <input type="date" class="form-control" id="dateInsertion" name="dateInsertion">
+                    <input type="date" class="form-control @error('dateInsertion') is-invalid @enderror" id="dateInsertion" name="dateInsertion" value="{{ request()->get('dateInsertion', '') }}">
+                    @error('dateInsertion')
+                    <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+                    @enderror
                 </div>
 
                 <div class="form-group col-sm-6 col-md-2 me-2">
                     <label style="color: white" for="clientId">Client:</label>
-                    <input type="text" class="form-control" id="clientId" name="clientId"
-                           value="{{ request()->get('clientId', '') }}">
+                    <input type="text" class="form-control @error('clientId') is-invalid @enderror" id="clientId" name="clientId" value="{{ request()->get('clientId', '') }}">
+                    @error('clientId')
+                    <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+                    @enderror
                 </div>
 
                 <div class="form-group col-sm-2 col-md-1 d-flex" style="margin-top: 14px; padding: 16px">
@@ -25,8 +34,11 @@
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4">
-                    <div class="card-header pb-0">
+                    <div class="card-header pb-0 d-flex justify-content-between">
                         <h6>Liste des robes</h6>
+                        <a href="{{ route('robes.create') }}" class="btn btn-success">
+                            <i class="fas fa-plus"></i> Créer une robe pour un utilisateur
+                        </a>
                     </div>
 
                     <div class="card-body px-0 pt-0 pb-2">
@@ -34,41 +46,49 @@
                             <table class="text-center table table-bordered align-items-center mb-0">
                                 <thead>
                                 <tr>
-                                    <th class="">Identifiant</th>
-                                    <th class="">Date</th>
-                                    <th class="">Image</th>
-                                    <th class="">Coupe</th>
-                                    <th class="">Col</th>
-                                    <th class="">Manches</th>
-                                    <th class="">Tissu</th>
-                                    <th class="">Options</th>
+                                    <th>Identifiant</th>
+                                    <th>Date</th>
+                                    <th>Image</th>
+                                    <th>Coupe</th>
+                                    <th>Col</th>
+                                    <th>Manches</th>
+                                    <th>Jupes</th>
+                                    <th>Tissu</th>
+                                    <th>Options</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($robesList as $robe)
                                 <tr>
-                                    <td>1234</td>
-                                    <td>23/12/2023</td>
+                                    <td>{{$robe->id}}</td>
+                                    <td>{{$robe->date}}</td>
                                     <td>
                                         <div class="d-flex justify-content-center">
-                                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm"
+                                            @if($robe->imagePath)
+                                            <img src="{{$robe->imageUrl()}}" class="avatar avatar-sm"
                                                  alt="user1">
+                                            @else
+                                                Pas d'image
+                                            @endif
                                         </div>
                                     </td>
-                                    <td>Coupe</td>
-                                    <td>Col</td>
-                                    <td>Manches</td>
-                                    <td>Tissu</td>
+                                    <td>{{$robe->coupe->nom}}</td>
+                                    <td>{{$robe->col->nom}}</td>
+                                    <td>{{$robe->manche->nom}}</td>
+                                    <td>{{$robe->jupe->nom}}</td>
+                                    <td>{{$robe->tissu->nom}}</td>
                                     <td>
-                                        <a href="#" class="btn btn-warning btn-sm">
+                                        <a href="{{route('robes.edit',$robe)}}" class="btn btn-warning btn-sm">
                                             <i class="fas fa-edit"></i> Modifier
                                         </a>
-                                        <a href="#" class="btn btn-danger btn-sm"
+                                        <a href="{{route('robes.delete',$robe)}}" class="btn btn-danger btn-sm"
                                            onclick='return confirm("Êtes-vous sûr de vouloir supprimer cette robe ?")'>
                                             <i class="fas fa-trash-alt"></i> Supprimer
                                         </a>
                                     </td>
 
                                 </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>

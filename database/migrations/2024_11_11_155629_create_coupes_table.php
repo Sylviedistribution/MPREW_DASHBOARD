@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('coupes', function (Blueprint $table) {
             $table->id();
             $table->string('nom'); // champ de l'élément de base
-            $table->string('image_path')->nullable(); // champ de l'élément de base
+            $table->string('imagePath')->nullable(); // champ de l'élément de base
             $table->text('description')->nullable(); // champ de l'élément de base
             $table->timestamps();
         });

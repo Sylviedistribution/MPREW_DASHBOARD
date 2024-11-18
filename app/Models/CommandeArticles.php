@@ -12,7 +12,7 @@ class CommandeArticles extends Model
     protected $fillable = [
         'robeId',
         'quantite',
-        'prixunitaire',
+        'prixUnitaire',
         'commandeId',
     ];
 
@@ -26,5 +26,21 @@ class CommandeArticles extends Model
     public function commande()
     {
         return $this->belongsTo(Commandes::class, 'commandeId');
+    }
+
+
+    public static function filterBy($quantite = null, $prixUnitaire = null)
+    {
+        $query = CommandeArticles::query();
+
+        if ($quantite) {
+            $query->where('quantite', '=', $quantite);
+        }
+
+        if ($prixUnitaire) {
+            $query->where('$prixUnitaire', '=', $prixUnitaire);
+        }
+
+        return $query->paginate(10);
     }
 }

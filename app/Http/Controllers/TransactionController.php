@@ -17,6 +17,13 @@ class TransactionController extends Controller
     }
 
 
+    public function mesTransactions()
+    {
+        $transactionsList = Transactions::all();
+
+        return view('transactions/list', compact('transactionsList'));
+    }
+
     public function create()
     {
         //

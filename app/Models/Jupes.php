@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Jupes extends ElementRobes
 {
     use HasFactory;
+
 
     public static function filterBy( $nom = null,  $dateInsertion = null)
     {
@@ -23,5 +25,10 @@ class Jupes extends ElementRobes
 
 
         return $jupesList = $query->paginate(10);
+    }
+
+    public function imageUrl(): string {
+        //Generer l'url de l'image
+        return Storage::url($this->imagePath);
     }
 }

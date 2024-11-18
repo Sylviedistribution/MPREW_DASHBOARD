@@ -45,24 +45,26 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($colsList as $col)
                                 <tr>
-                                    <td>12345</td>
-                                    <td>Exemple Col</td>
+                                    <td>{{$col->id}}</td>
+                                    <td>{{$col->nom}}</td>
                                     <td>
                                         <div class="d-flex justify-content-center">
-                                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm" alt="col image">
+                                            <img src="{{$col->imageUrl()}}" class="avatar avatar-gl" alt="col image">
                                         </div>
                                     </td>
-                                    <td>Exemple de description</td>
+                                    <td>{{$col->description}}</td>
                                     <td>
-                                        <a href="#" class="btn btn-warning btn-sm">
+                                        <a href="{{route('cols.edit',$col)}}" class="btn btn-warning btn-sm">
                                             <i class="fas fa-edit"></i> Modifier
                                         </a>
-                                        <a href="#" class="btn btn-danger btn-sm" onclick='return confirm("Êtes-vous sûr de vouloir supprimer ce col ?")'>
+                                        <a href="{{route('cols.delete',$col)}}" class="btn btn-danger btn-sm" onclick='return confirm("Êtes-vous sûr de vouloir supprimer ce col ?")'>
                                             <i class="fas fa-trash-alt"></i> Supprimer
                                         </a>
                                     </td>
                                 </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>

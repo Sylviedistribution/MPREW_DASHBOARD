@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ApiCommandeController extends Controller
+class Commande extends Controller
 {
 
     public function index()

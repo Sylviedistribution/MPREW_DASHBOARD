@@ -27,6 +27,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return view('index');
+});
+
 Route::get('index', function () {
     return view('index');
 })->name('index');
@@ -116,11 +120,19 @@ Route::prefix('commandes/')->controller(CommandeController::class)->group(functi
     Route::get('index', 'index')->name('commandes.list');
     Route::get('create', 'create')->name('commandes.create');
     Route::post('store', 'store')->name('commandes.store');
-    Route::post('articles', 'articles')->name('commandes.articles');
-    Route::get('edit/{commande}', 'edit')->name('commandes.edit');
-    Route::post('update/{commande}', 'update')->name('commandes.update');
     Route::get('delete/{commande}', 'delete')->name('commandes.delete');
     Route::get('filter', 'filter')->name('commandes.filter');
+    Route::get('valider/{commande}', 'valider')->name('commandes.valider');
+    Route::get('artisanView', 'artisanView')->name('commandes.artisanView');
+
+    Route::get('articles/{commande}', 'articles')->name('commandes.articles');
+
+    Route::get('articles/edit/{article}', 'articleEdit')->name('articles.edit');
+    Route::post('articles/update/{article}', 'articleUpdate')->name('articles.update');
+    Route::get('articles/delete/{article}', 'articleDelete')->name('articles.delete');
+    Route::get('articles/filter', 'filterArticles')->name('articles.filter');
+
+
 });
 
 Route::prefix('paiements/')->controller(PaiementController::class)->group(function () {
@@ -151,6 +163,8 @@ Route::prefix('transactions/')->controller(TransactionController::class)->group(
     Route::post('update/{transaction}', 'update')->name('transactions.update');
     Route::get('delete/{transaction}', 'delete')->name('transactions.delete');
     Route::get('filter', 'filter')->name('transactions.filter');
+    Route::get('mesTransactions', 'mesTransactions')->name('transactions.artisan');
+
 });
 
 Route::prefix('notification/')->controller(NotificationController::class)->group(function () {
@@ -160,15 +174,13 @@ Route::prefix('notification/')->controller(NotificationController::class)->group
     Route::get('edit/{notifications}', 'edit')->name('notification.edit');
     Route::post('update/{notifications}', 'update')->name('notification.update');
     Route::get('delete/{notifications}', 'delete')->name('notification.delete');
-    Route::get('filter/{notifications}', 'delete')->name('notification.filter');
+    Route::get('filter/{notifications}', 'filter')->name('notification.filter');
 });
 
 // AUTHENTIFICATION
 Route::controller(AuthController::class)->group(function () {
     Route::get('/login', 'login')->name('login');
-    Route::get('/register', 'register')->name('register');
     Route::post('/loginAction', 'loginAction')->name('login.action');
-    Route::post('/registerSave', 'registerSave')->name('register.save');
     Route::get('/logout', 'logout')->name('logout');
 });
 

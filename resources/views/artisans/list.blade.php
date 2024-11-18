@@ -27,8 +27,8 @@
                     <label style="color: white" for="etat">Etat:</label>
                     <select class="form-control" id="etat" name="etat">
                         <option value="">-- Sélectionner --</option>
-                        <option value="1" {{ request()->get('etat') == '1' ? 'selected' : '' }}>Actif</option>
-                        <option value="0" {{ request()->get('etat') == '0' ? 'selected' : '' }}>Bloqué</option>
+                        <option value="1">Actif</option>
+                        <option value="0">Bloqué</option>
                     </select>
                 </div>
 
@@ -62,22 +62,26 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($artisansList as $artisan)
                                 <tr>
-                                    <td>12345</td>
-                                    <td>Procrastination</td>
-                                    <td>email@example.com</td>
-                                    <td>23/04/18</td>
-                                    <td>123 Street</td>
-                                    <td>Actif</td>
+                                    <td>{{$artisan->id}}</td>
+                                    <td>{{$artisan->username}}</td>
+                                    <td>{{$artisan->email}}</td>
+                                    <td>{{$artisan->telephone}}</td>
+                                    <td>{{$artisan->adresse}}</td>
                                     <td>
-                                        <a href="#" class="btn btn-warning btn-sm">
+                                        <span class="badge badge-sm bg-gradient-{{$artisan->etat?'success':'secondary'}}">{{$artisan->etat?'Actif':'Bloqué'}} </span></td>
+                                    <td>
+                                        <a href="{{route('artisans.edit',$artisan)}}" class="btn btn-warning btn-sm">
                                             <i class="fas fa-edit"></i> Modifier
                                         </a>
-                                        <a href="#" class="btn btn-danger btn-sm" onclick='return confirm("Êtes-vous sûr de vouloir supprimer cet artisan ?")'>
+                                        <a href="{{route('artisans.delete',$artisan)}}" class="btn btn-danger btn-sm" onclick='return confirm("Êtes-vous sûr de vouloir supprimer cet artisan ?")'>
                                             <i class="fas fa-trash-alt"></i> Supprimer
                                         </a>
                                     </td>
                                 </tr>
+                                @endforeach
+
                                 </tbody>
                             </table>
                         </div>

@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('commandearticles', function (Blueprint $table) {
+        Schema::create('commande_articles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('robeId')->constrained('robes')->onDelete('cascade');
             $table->integer('quantite')->unsigned();
-            $table->double('prixunitaire', 8, 2);
+            $table->double('prixUnitaire', 8, 2);
             $table->foreignId('commandeId')->constrained('commandes')->onDelete('cascade');
             $table->timestamps();
         });

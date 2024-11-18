@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ApiTissuController extends Controller
+class Livraison extends Controller
 {
 
     public function index()
@@ -42,7 +42,6 @@ class ApiTissuController extends Controller
     {
         //
     }
-
 
     public function destroy(string $id)
     {

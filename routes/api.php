@@ -1,7 +1,21 @@
 <?php
 
-use App\Http\Controllers\ApiClientController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\Artisan;
+use App\Http\Controllers\Api\Auth;
+use App\Http\Controllers\Api\Client;
+use App\Http\Controllers\Api\Col;
+use App\Http\Controllers\Api\Commande;
+use App\Http\Controllers\Api\Coupe;
+use App\Http\Controllers\Api\Jupe;
+use App\Http\Controllers\Api\Livraison;
+use App\Http\Controllers\Api\Manche;
+use App\Http\Controllers\Api\Model3d;
+use App\Http\Controllers\Api\Notification;
+use App\Http\Controllers\Api\Paiement;
+use App\Http\Controllers\Api\Robe;
+use App\Http\Controllers\Api\Tissu;
+use App\Http\Controllers\Api\Transaction;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -10,112 +24,114 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
+| routes are loaded by the RouteServiceProvider and assigned to the "api"
+| middleware group. Build your API!
 |
 */
-// Routes pour les clients
-Route::prefix('api/clients')->controller(ApiClientController::class)->group(function () {
-    Route::get('/', 'index');
-    Route::post('/', 'store');
-    Route::get('/{client}', 'show');
-    Route::put('/{client}', 'update');
-    Route::delete('/{client}', 'destroy');
+
+// Clients Routes
+Route::prefix('clients')->controller(Client::class)->group(function () {
+    Route::get('/', 'index'); // List all clients
+    Route::post('/', 'store'); // Create a new client
+    Route::get('{client}', 'edit'); // Get a specific client
+    Route::put('{client}', 'update'); // Update a client
+    Route::delete('{client}', 'delete'); // Delete a client
+    Route::get('filter', 'filter'); // Filter clients
 });
 
-// Routes pour les artisans
-Route::prefix('api/artisans')->controller(ArtisanController::class)->group(function () {
-    Route::get('/', 'index');
-    Route::post('/', 'store');
-    Route::get('/{artisan}', 'show');
-    Route::put('/{artisan}', 'update');
-    Route::delete('/{artisan}', 'destroy');
+
+// Model3d Routes
+Route::prefix('model3d')->controller(Model3d::class)->group(function () {
+    Route::get('/', 'show');
 });
 
-// Routes pour les robes
-Route::prefix('api/robes')->controller(RobeController::class)->group(function () {
+
+// Robes Routes
+Route::prefix('robes')->controller(Robe::class)->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
-    Route::get('/{robe}', 'show');
-    Route::put('/{robe}', 'update');
-    Route::delete('/{robe}', 'destroy');
+    Route::delete('{robe}', 'delete');
 });
 
-// Routes pour les coupes
-Route::prefix('api/coupes')->controller(CoupeController::class)->group(function () {
+// Coupes Routes
+Route::prefix('coupes')->controller(Coupe::class)->group(function () {
+    Route::get('/', 'index');
+});
+
+// Cols Routes
+Route::prefix('cols')->controller(Col::class)->group(function () {
+    Route::get('/', 'index');
+});
+
+// Manches Routes
+Route::prefix('manches')->controller(Manche::class)->group(function () {
+    Route::get('/', 'index');
+
+});
+
+// Jupes Routes
+Route::prefix('jupes')->controller(Jupe::class)->group(function () {
+    Route::get('/', 'index');
+
+});
+
+// Tissus Routes
+Route::prefix('tissus')->controller(Tissu::class)->group(function () {
+    Route::get('/', 'index');
+
+});
+
+// Commandes Routes
+Route::prefix('commandes')->controller(Commande::class)->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
-    Route::get('/{coupe}', 'show');
-    Route::put('/{coupe}', 'update');
-    Route::delete('/{coupe}', 'destroy');
+    Route::delete('{commande}', 'delete');
+    Route::get('filter', 'filter');
+    Route::get('{commande}/articles', 'articles');
+    Route::put('articles/{article}', 'articleUpdate');
+    Route::delete('articles/{article}', 'articleDelete');
+    Route::get('articles/filter', 'filterArticles');
 });
 
-// Routes pour les cols
-Route::prefix('api/cols')->controller(ColController::class)->group(function () {
+// Paiements Routes
+Route::prefix('paiements')->controller(Paiement::class)->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
-    Route::get('/{col}', 'show');
-    Route::put('/{col}', 'update');
-    Route::delete('/{col}', 'destroy');
+    Route::put('{paiement}', 'update');
+    Route::delete('{paiement}', 'delete');
+    Route::get('filter', 'filter');
 });
 
-// Routes pour les manches
-Route::prefix('api/manches')->controller(MancheController::class)->group(function () {
+// Livraisons Routes
+Route::prefix('livraisons')->controller(Livraison::class)->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
-    Route::get('/{manche}', 'show');
-    Route::put('/{manche}', 'update');
-    Route::delete('/{manche}', 'destroy');
+    Route::put('{livraison}', 'update');
+    Route::delete('{livraison}', 'delete');
+    Route::get('filter', 'filter');
 });
 
-// Routes pour les jupes
-Route::prefix('api/jupes')->controller(JupeController::class)->group(function () {
+// Transactions Routes
+Route::prefix('transactions')->controller(Transaction::class)->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
-    Route::get('/{jupe}', 'show');
-    Route::put('/{jupe}', 'update');
-    Route::delete('/{jupe}', 'destroy');
+    Route::put('{transaction}', 'update');
+    Route::delete('{transaction}', 'delete');
+    Route::get('filter', 'filter');
 });
 
-// Routes pour les commandes
-Route::prefix('api/commandes')->controller(CommandeController::class)->group(function () {
+// Notifications Routes
+Route::prefix('notifications')->controller(Notification::class)->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
-    Route::get('/{commande}', 'show');
-    Route::put('/{commande}', 'update');
-    Route::delete('/{commande}', 'destroy');
+    Route::put('{notification}', 'update');
+    Route::delete('{notification}', 'delete');
+    Route::get('filter', 'filter');
 });
 
-// Routes pour les paiements
-Route::prefix('api/paiements')->controller(PaiementController::class)->group(function () {
-    Route::get('/', 'index');
-    Route::post('/', 'store');
-    Route::get('/{paiement}', 'show');
-    Route::put('/{paiement}', 'update');
-    Route::delete('/{paiement}', 'destroy');
-});
-
-// Routes pour les transactions
-Route::prefix('api/transactions')->controller(TransactionController::class)->group(function () {
-    Route::get('/', 'index');
-    Route::post('/', 'store');
-    Route::get('/{transaction}', 'show');
-    Route::put('/{transaction}', 'update');
-    Route::delete('/{transaction}', 'destroy');
-});
-
-// Routes pour les notifications
-Route::prefix('api/notifications')->controller(NotificationController::class)->group(function () {
-    Route::get('/', 'index');
-    Route::post('/', 'store');
-    Route::get('/{notification}', 'show');
-    Route::put('/{notification}', 'update');
-    Route::delete('/{notification}', 'destroy');
-});
-
-// Authentification
-Route::prefix('api/auth')->controller(AuthController::class)->group(function () {
-    Route::post('/login', 'login');
-    Route::post('/register', 'register');
-    Route::post('/logout', 'logout')->middleware('auth:sanctum');
+//Authentification
+Route::prefix('auth')->group(function () {
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 });

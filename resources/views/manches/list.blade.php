@@ -5,16 +5,26 @@
         <div class="row d-flex align-items-center">
             <form method="GET" action="{{ route('manches.filter') }}" class="form-inline d-flex w-100 flex-wrap">
                 @csrf
-                <div class="form-group col-sm-6 col-md-3 me-2">
+                <div class="form-group col-sm-6 col-md-2 me-2">
                     <label style="color: white" for="nom">Nom:</label>
-                    <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom"
+                    <input type="text" class="form-control @error('nom') is-invalid @enderror" id="nom" name="nom" placeholder="Nom"
                            value="{{ request()->get('nom', '') }}">
+                    @error('nom')
+                    <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
 
-                <div class="form-group col-sm-6 col-md-3 me-2">
+                <div class="form-group col-sm-6 col-md-2 me-2">
                     <label style="color: white" for="dateInsertion">Date:</label>
-                    <input type="date" class="form-control" id="dateInsertion" name="dateInsertion"
+                    <input type="date" class="form-control @error('dateInsertion') is-invalid @enderror" id="dateInsertion" name="dateInsertion"
                            value="{{ request()->get('dateInsertion', '') }}">
+                    @error('dateInsertion')
+                    <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
 
                 <div class="form-group col-sm-2 col-md-1 d-flex" style="margin-top: 14px; padding: 16px">
@@ -45,24 +55,28 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>12345</td>
-                                    <td>Exemple nom manche</td>
-                                    <td>
-                                        <div class="d-flex justify-content-center">
-                                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm" alt="coupe image">
-                                        </div>
-                                    </td>
-                                    <td>Exemple de description</td>
-                                    <td>
-                                        <a href="#" class="btn btn-warning btn-sm">
-                                            <i class="fas fa-edit"></i> Modifier
-                                        </a>
-                                        <a href="#" class="btn btn-danger btn-sm" onclick='return confirm("Êtes-vous sûr de vouloir supprimer ces manches ?")'>
-                                            <i class="fas fa-trash-alt"></i> Supprimer
-                                        </a>
-                                    </td>
-                                </tr>
+                                @foreach($manchesList as $manche)
+                                    <tr>
+                                        <td>{{$manche->id}}</td>
+                                        <td>{{$manche->nom}}</td>
+                                        <td>
+                                            <div class="d-flex justify-content-center">
+                                                <img src="{{$manche->imageUrl()}}" class="avatar avatar-gl" alt="manche image">
+                                            </div>
+                                        </td>
+                                        <td style="width: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                            {{$manche->description}}</td>
+                                        <td>
+                                            <a href="{{route('manches.edit',$manche)}}" class="btn btn-warning btn-sm">
+                                                <i class="fas fa-edit"></i> Modifier
+                                            </a>
+                                            <a href="{{route('manches.delete',$manche)}}" class="btn btn-danger btn-sm" onclick='return confirm("Êtes-vous sûr de vouloir supprimer cette coupe ?")'>
+                                                <i class="fas fa-trash-alt"></i> Supprimer
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
                                 </tbody>
                             </table>
                         </div>

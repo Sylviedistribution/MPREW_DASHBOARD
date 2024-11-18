@@ -36,8 +36,9 @@
                     <label style="color: white" for="statut">Statut:</label>
                     <select class="form-select" name="statut">
                         <option value="">-- Sélectionner --</option>
-                        <option value="1" {{ request()->get('statut') == '1' ? 'selected' : '' }}>En préparation</option>
-                        <option value="0" {{ request()->get('statut') == '0' ? 'selected' : '' }}>Terminée</option>
+                        <option value="En préparation">En préparation
+                        </option>
+                        <option value="Terminee">Terminée</option>
                     </select> @error('statut')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -63,8 +64,10 @@
                 <div class="card mb-4">
                     <div class="card-header pb-0 d-flex justify-content-between">
                         <h6>Liste des commandes</h6>
+                        <a href="{{ route('commandes.create') }}" class="btn btn-success">
+                            <i class="fas fa-plus"></i> Passer une commande
+                        </a>
                     </div>
-
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
                             <table class="table table-bordered text-center mb-0">
@@ -80,27 +83,26 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($commandesList as $commande)
                                 <tr>
-                                    <td>12345</td>
-                                    <td>23/04/18</td>
-                                    <td>XX FCFA</td>
-                                    <td>En cours</td>
-                                    <td>00123</td>
+                                    <td>{{$commande->id}}</td>
+                                    <td>{{$commande->date}}</td>
+                                    <td>{{$commande->total}}</td>
+                                    <td>{{$commande->statut}}</td>
+                                    <td>{{$commande->client->email }}</td>
                                     <td>
-                                        <a href="{{route('commandes.articles')}}" class="btn btn-info btn-sm">
+                                        <a href="{{route('commandes.articles',$commande)}}" class="btn btn-info btn-sm">
                                             <i class="fas fa-eye"></i> Articles
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="#" class="btn btn-warning btn-sm">
-                                            <i class="fas fa-edit"></i> Modifier
-                                        </a>
-                                        <a href="#" class="btn btn-danger btn-sm" onclick='return confirm("Êtes-vous sûr de vouloir supprimer cette commande ?")'>
+                                        <a href="{{route('commandes.delete',$commande)}}" class="btn btn-danger btn-sm"
+                                           onclick='return confirm("Êtes-vous sûr de vouloir supprimer cette commande ?")'>
                                             <i class="fas fa-trash-alt"></i> Supprimer
                                         </a>
                                     </td>
                                 </tr>
-                                <!-- Add more rows as needed -->
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>

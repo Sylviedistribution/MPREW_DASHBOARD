@@ -55,23 +55,22 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>12345</td>
-                                    <td>XX FCFA</td>
-                                    <td>23/04/18</td>
-                                    <td>En cours</td>
-                                    <td>00123</td>
-                                    <td>001</td>
-                                    <td>
-                                        <a href="#" class="btn btn-warning btn-sm">
-                                            <i class="fas fa-edit"></i> Modifier
-                                        </a>
-                                        <a href="#" class="btn btn-danger btn-sm" onclick='return confirm("Êtes-vous sûr de vouloir supprimer ce paiement ?")'>
-                                            <i class="fas fa-trash-alt"></i> Supprimer
-                                        </a>
-                                    </td>
-                                </tr>
-                                <!-- Ajoutez des lignes supplémentaires si nécessaire -->
+                                @foreach($paiementsList as $paiement)
+                                    <tr>
+                                        <td>{{$paiement->id}}</td>
+                                        <td>{{$paiement->montant}}</td>
+                                        <td>{{$paiement->date}}</td>
+                                        <td>{{$paiement->statut}}</td>
+                                        <td>{{$paiement->commandeId}}</td>
+                                        <td>{{$paiement->clientId}}</td>
+                                        <td>
+                                            <a href="#" class="btn btn-danger btn-sm"
+                                               onclick='return confirm("Êtes-vous sûr de vouloir supprimer ce paiement ?")'>
+                                                <i class="fas fa-trash-alt"></i> Supprimer
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>

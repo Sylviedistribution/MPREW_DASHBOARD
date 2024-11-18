@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+
 class AuthController extends Controller
 {
 
@@ -17,32 +19,45 @@ class AuthController extends Controller
     // Traitement de la soumission du formulaire de connexion
     public function loginAction(Request $request)
     {
-
-        // Validation des données du formulaire
-        Validator::make($request->all(), [
+        // Validation des données d'entrée
+        $request->validate([
             'email' => 'required|email',
-            'password' => 'required'
-        ])->validate();
+            'password' => 'required',
+        ]);
 
-        // Authentification de l'utilisateur
-        if (!Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
-            // En cas d'échec d'authentification, renvoie une erreur de validation
-            throw ValidationException::withMessages([
-                'email' => trans('auth.failed')
-            ]);
+        // Récupérer les identifiants
+        $credentials = $request->only('email', 'password');
+
+        // Tentative d'authentification avec le guard artisan
+        if (Auth::guard('artisan')->attempt($credentials)) {
+            // Régénérer la session en cas de succès
+            $request->session()->regenerate();
+
+            // Redirection en cas de connexion réussie
+            return redirect()->route('index')->with('success', "Connexion réussie. Bienvenu");
         }
-        // Régénération de la session
-        $request->session()->regenerate();
 
+        if (Auth::guard('admin')->attempt($credentials)) {
+            // Régénérer la session en cas de succès
+            $request->session()->regenerate();
 
-        // Redirection vers le tableau de bord après une connexion réussise
-        return redirect()->route('index');
+            // Redirection en cas de connexion réussie
+            return redirect()->route('index')->with('success', "Bienvenue administrateur.");
+        }
+
+        // Échec de l'authentification
+        return back()->withErrors([
+            'email' => 'Identifiants incorrects pour Artisan.',
+            'password' => 'Veuillez vérifier votre mot de passe.',
+        ]);
     }
+
 
     // Déconnexion de l'utilisateur
     public function logout(Request $request)
     {
-        Auth::guard('web')->logout();
+        Auth::guard('admin')->logout();
+        Auth::guard('artisan')->logout();
 
         // Invalidation de la session
         $request->session()->invalidate();

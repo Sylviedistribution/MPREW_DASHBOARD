@@ -20,7 +20,7 @@ class Clients extends Model
     ]
     ;
 
-    public static function filterBy( $username = null,  $email = null,  $genre = null,  $statut= null)
+    public static function filterBy( $username = null,  $email = null,  $genre = null,  $etat= null)
     {
         $query = Clients::query();
 
@@ -36,8 +36,8 @@ class Clients extends Model
             $query->where('genre', 'like', '%' . $genre . '%');
         }
 
-        if ($statut) {
-            $query->where('statut', 'like', $statut);
+        if ($etat) {
+            $query->where('etat', 'like', '%'.$etat.'%');
         }
 
         return $clientsList = $query->paginate(10);

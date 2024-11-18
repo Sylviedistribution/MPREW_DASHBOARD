@@ -3,14 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Tissues;
 use Illuminate\Http\Request;
 
-class ApiTransactionController extends Controller
+class Tissu extends Controller
 {
 
     public function index()
     {
-        //
+        $tissus = Tissues::all();
+        return response()->json($tissus, 200);
     }
 
 

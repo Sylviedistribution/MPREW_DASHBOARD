@@ -7,7 +7,7 @@
                 @csrf
                 <div class="form-group col-sm-6 col-md-2 me-2">
                     <label style="color: white" for="nom">Nom:</label>
-                    <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom"
+                    <input type="text" class="form-control @e" id="nom" name="nom" placeholder="Nom"
                            value="{{ request()->get('nom', '') }}">
                 </div>
 
@@ -45,24 +45,27 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>12345</td>
-                                    <td>Exemple Coupe</td>
-                                    <td>
-                                        <div class="d-flex justify-content-center">
-                                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm" alt="coupe image">
-                                        </div>
-                                    </td>
-                                    <td>Exemple de description</td>
-                                    <td>
-                                        <a href="#" class="btn btn-warning btn-sm">
-                                            <i class="fas fa-edit"></i> Modifier
-                                        </a>
-                                        <a href="#" class="btn btn-danger btn-sm" onclick='return confirm("Êtes-vous sûr de vouloir supprimer ce tissu ?")'>
-                                            <i class="fas fa-trash-alt"></i> Supprimer
-                                        </a>
-                                    </td>
-                                </tr>
+                                @foreach($tissusList as $tissu)
+                                    <tr>
+                                        <td>{{$tissu->id}}</td>
+                                        <td>{{$tissu->nom}}</td>
+                                        <td>
+                                            <div class="d-flex justify-content-center">
+                                                <img src="{{$tissu->imageUrl()}}" class="avatar avatar-gl" alt="tissu image">
+                                            </div>
+                                        </td>
+                                        <td>{{$tissu->description}}</td>
+                                        <td>
+                                            <a href="{{route('tissus.edit',$tissu)}}" class="btn btn-warning btn-sm">
+                                                <i class="fas fa-edit"></i> Modifier
+                                            </a>
+                                            <a href="{{route('tissus.delete',$tissu)}}" class="btn btn-danger btn-sm" onclick='return confirm("Êtes-vous sûr de vouloir supprimer cette coupe ?")'>
+                                                <i class="fas fa-trash-alt"></i> Supprimer
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
                                 </tbody>
                             </table>
                         </div>
