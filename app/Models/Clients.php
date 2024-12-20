@@ -3,22 +3,26 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class Clients extends Model
+
+class Clients  extends Authenticatable
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
         'username',
         'email',
         'password',
-        'adresse',
-        'mensurations',
         'genre',
         'etat',
-    ]
-    ;
+    ];
+
+    protected $casts = [
+        'mensurations' => 'array',
+    ];
 
     public static function filterBy( $username = null,  $email = null,  $genre = null,  $etat= null)
     {

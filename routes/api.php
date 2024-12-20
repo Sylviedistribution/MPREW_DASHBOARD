@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Api\Artisan;
 use App\Http\Controllers\Api\Auth;
 use App\Http\Controllers\Api\Client;
 use App\Http\Controllers\Api\Col;
@@ -31,27 +30,24 @@ use Illuminate\Support\Facades\Route;
 
 // Clients Routes
 Route::prefix('clients')->controller(Client::class)->group(function () {
-    Route::get('/', 'index'); // List all clients
-    Route::post('/', 'store'); // Create a new client
+    Route::get('/', 'index')->middleware('auth:sanctum'); // List one
+    Route::get('/mensurations', 'getMensuration'); // List all clients
+    Route::post('/', 'store');// Create a new client
     Route::get('{client}', 'edit'); // Get a specific client
-    Route::put('{client}', 'update'); // Update a client
+    Route::post('/update', 'update')->middleware('auth:sanctum'); ; // Update a client
     Route::delete('{client}', 'delete'); // Delete a client
     Route::get('filter', 'filter'); // Filter clients
 });
 
 
-// Model3d Routes
-Route::prefix('model3d')->controller(Model3d::class)->group(function () {
-    Route::get('/', 'show');
-});
-
 
 // Robes Routes
 Route::prefix('robes')->controller(Robe::class)->group(function () {
-    Route::get('/', 'index');
-    Route::post('/', 'store');
+    Route::get('/', 'index')->middleware('auth:sanctum');
+    Route::post('/', 'store')->middleware('auth:sanctum');
     Route::delete('{robe}', 'delete');
 });
+
 
 // Coupes Routes
 Route::prefix('coupes')->controller(Coupe::class)->group(function () {
@@ -84,7 +80,7 @@ Route::prefix('tissus')->controller(Tissu::class)->group(function () {
 // Commandes Routes
 Route::prefix('commandes')->controller(Commande::class)->group(function () {
     Route::get('/', 'index');
-    Route::post('/', 'store');
+    Route::post('/store', 'store')->middleware('auth:sanctum');
     Route::delete('{commande}', 'delete');
     Route::get('filter', 'filter');
     Route::get('{commande}/articles', 'articles');
@@ -96,10 +92,7 @@ Route::prefix('commandes')->controller(Commande::class)->group(function () {
 // Paiements Routes
 Route::prefix('paiements')->controller(Paiement::class)->group(function () {
     Route::get('/', 'index');
-    Route::post('/', 'store');
-    Route::put('{paiement}', 'update');
-    Route::delete('{paiement}', 'delete');
-    Route::get('filter', 'filter');
+    Route::post('/make', 'store')->middleware('auth:sanctum');
 });
 
 // Livraisons Routes
@@ -131,7 +124,7 @@ Route::prefix('notifications')->controller(Notification::class)->group(function 
 
 //Authentification
 Route::prefix('auth')->group(function () {
-    Route::post('/register', [AuthController::class, 'register']);
-    Route::post('/login', [AuthController::class, 'login']);
-    Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+    Route::post('/register', [Auth::class, 'register']);
+    Route::post('/login', [Auth::class, 'login']);
+    Route::post('/logout', [Auth::class, 'logout'])->middleware('auth:sanctum');
 });

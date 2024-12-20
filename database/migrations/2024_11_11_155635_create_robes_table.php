@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('robes', function (Blueprint $table) {
             $table->id(); // id (auto-incremented primary key)
+            $table->string('nom'); // imagePath
+            $table->integer('prix'); // imagePath
             $table->dateTime('date'); // date
-            $table->string('imagePath'); // imagePath
             $table->unsignedBigInteger('colId'); // colId (foreign key)
             $table->unsignedBigInteger('coupeId'); // coupeId (foreign key)
             $table->unsignedBigInteger('mancheId'); // mancheId (foreign key)

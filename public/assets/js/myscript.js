@@ -32,7 +32,7 @@ $(document).ready(function() {
 
         // Ajouter l'image uniquement pour les options ayant l'attribut `data-image`
         var $state = $(
-            '<span><img src="' + $(state.element).data('image') + '" style="width: 40px; height: 40px; vertical-align: middle; margin-right: 8px;" />' + state.text + '</span>'
+            '<span><img src="' + $(state.element).data('image') + '" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 8px;" />' + state.text + '</span>'
         );
         return $state;
     }

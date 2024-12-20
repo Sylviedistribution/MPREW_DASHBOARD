@@ -22,7 +22,7 @@
                         <div class="form-group">
                             <label for="description" class="form-control-label">Description</label>
                             <textarea class="form-control @error('description') is-invalid @enderror" id="description"
-                                      name="description" placeholder="Décrivez votre col...">{{ old('description', $col->description) }}"</textarea>
+                                      name="description" placeholder="Décrivez votre col...">{{ old('description', $col->description) }}</textarea>
                             @error('description')
                             <span class="invalid-feedback">{{ $message }}</span>
                             @enderror

@@ -47,8 +47,9 @@
                                 <thead>
                                 <tr>
                                     <th>Identifiant</th>
+                                    <th>Nom</th>
+                                    <th>Prix</th>
                                     <th>Date</th>
-                                    <th>Image</th>
                                     <th>Coupe</th>
                                     <th>Col</th>
                                     <th>Manches</th>
@@ -61,22 +62,14 @@
                                 @foreach($robesList as $robe)
                                 <tr>
                                     <td>{{$robe->id}}</td>
+                                    <td>{{$robe->nom}}</td>
+                                    <td>{{$robe->prix}}</td>
                                     <td>{{$robe->date}}</td>
-                                    <td>
-                                        <div class="d-flex justify-content-center">
-                                            @if($robe->imagePath)
-                                            <img src="{{$robe->imageUrl()}}" class="avatar avatar-sm"
-                                                 alt="user1">
-                                            @else
-                                                Pas d'image
-                                            @endif
-                                        </div>
-                                    </td>
-                                    <td>{{$robe->coupe->nom}}</td>
-                                    <td>{{$robe->col->nom}}</td>
-                                    <td>{{$robe->manche->nom}}</td>
-                                    <td>{{$robe->jupe->nom}}</td>
-                                    <td>{{$robe->tissu->nom}}</td>
+                                    <td>{{$robe->coupe->id}}</td>
+                                    <td>{{$robe->col->id}}</td>
+                                    <td>{{$robe->manche->id}}</td>
+                                    <td>{{$robe->jupe->id}}</td>
+                                    <td>{{$robe->tissu->id}}</td>
                                     <td>
                                         <a href="{{route('robes.edit',$robe)}}" class="btn btn-warning btn-sm">
                                             <i class="fas fa-edit"></i> Modifier

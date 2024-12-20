@@ -28,20 +28,15 @@ class AuthController extends Controller
         // Récupérer les identifiants
         $credentials = $request->only('email', 'password');
 
-        // Tentative d'authentification avec le guard artisan
         if (Auth::guard('artisan')->attempt($credentials)) {
-            // Régénérer la session en cas de succès
+            Auth::guard('admin')->logout(); // Déconnecte l'admin
             $request->session()->regenerate();
-
-            // Redirection en cas de connexion réussie
-            return redirect()->route('index')->with('success', "Connexion réussie. Bienvenu");
+            return redirect()->route('index')->with('success', "Connexion réussie en tant qu'Artisan.");
         }
 
         if (Auth::guard('admin')->attempt($credentials)) {
-            // Régénérer la session en cas de succès
+            Auth::guard('artisan')->logout(); // Déconnecte l'artisan
             $request->session()->regenerate();
-
-            // Redirection en cas de connexion réussie
             return redirect()->route('index')->with('success', "Bienvenue administrateur.");
         }
 

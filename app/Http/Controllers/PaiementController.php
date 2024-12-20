@@ -18,7 +18,7 @@ class PaiementController extends Controller
 
     public function create()
     {
-        //
+
     }
 
 

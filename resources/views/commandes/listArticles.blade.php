@@ -42,6 +42,9 @@
         <div class="row mt-4">
             <div class="col-12">
                 <div class="card mb-4">
+                    <div class="card-header pb-0 d-flex justify-content-between">
+                        <h6>Liste des articles</h6>
+                    </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
                             <table class="table table-bordered table-hover text-center mb-0">

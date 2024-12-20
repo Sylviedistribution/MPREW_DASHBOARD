@@ -19,38 +19,52 @@ class CommandeController extends Controller
 
     public function index()
     {
-        $commandesList = Commandes::paginate(10);
+        $commandesList = Commandes::where('artisanId','%' . "" . '%')->with(['client:id,email'])->paginate(10);
 
         return view('commandes/list', compact('commandesList'));
     }
 
     public function artisanView()
     {
-        $commandesList = Commandes::paginate(10);
+        $commandesList = Commandes::where('statut', 'like', 'EN_ATTENTE')->paginate(10);
 
         return view('commandes/artisanView', compact('commandesList'));
     }
 
     public function valider(Commandes $commandes)
     {
-        $commandes->update(['artisanId' => auth('artisan')->id()]);
+        // Récupérer l'ID de l'artisan authentifié
+        $artisanId = auth('artisan')->id();
+        $statut = "EN_PREPARATION";
+        // Vérification : Artisan authentifié ?
+        if (!$artisanId) {
+            return back()->withErrors(['error' => "L'authentification artisan a échoué."]);
+        }
 
-        return view('commandes/accepter');
+        // Mettre à jour la commande
+        $commandes->update([
+            'artisanId' => $artisanId,
+            'statut' => $statut,
+        ]);
+
+        // Récupérer la liste des commandes de l'artisan
+        $commandesList = Commandes::where('artisanId', $artisanId)->get();
+
+        // Retourner la vue avec les commandes mises à jour
+        return view('commandes/mesCommandes', compact('commandesList'))->with('success', 'Commande validée avec succès.');
     }
 
-    public function create()
+
+    public function updateStatus(Request $request, Commandes $commande)
     {
-        $clientsList = Clients::all();
-        $coupesList = Coupes::all();
-        $colsList = Cols::all();
-        $manchesList = Manches::all();
-        $jupesList = Jupes::all();
-        $tissusList = Tissues::all();
+        $validated = $request->validate([
+            'statut' => 'required|string|in:En préparation,Terminée',
+        ]);
 
+        $commande->update(['statut' => $validated['statut']]);
 
-        return view('commandes/create',compact('clientsList','coupesList','colsList','manchesList','jupesList','tissusList'));
+        return redirect()->back()->with('success', 'Le statut de la commande a été mis à jour avec succès.');
     }
-
 
     public function store(Request $request)
     {
@@ -91,7 +105,7 @@ class CommandeController extends Controller
             $commandeArticle = CommandeArticles::create([
                 'robeId' => $robe->id,
                 'quantite' => $robeData['quantite'],
-                'prixUnitaire' => 40000,
+                'prixUnitaire' => 100,
                 'commandeId' => $commande->id,
             ]);
 
@@ -104,12 +118,17 @@ class CommandeController extends Controller
         return redirect()->route('commandes.list')->with('success', 'Commande créée avec succès !');
     }
 
-    public function delete(Commandes $commande)
+    public function create()
     {
-        $commande->delete();
+        $clientsList = Clients::all();
+        $coupesList = Coupes::all();
+        $colsList = Cols::all();
+        $manchesList = Manches::all();
+        $jupesList = Jupes::all();
+        $tissusList = Tissues::all();
 
-        return redirect()->route('jupes.list')
-            ->with('success', "La commande " . $commande->id . " a été supprimée avec succès.");
+
+        return view('commandes/create', compact('clientsList', 'coupesList', 'colsList', 'manchesList', 'jupesList', 'tissusList'));
     }
 
     public function filter(Request $request)
@@ -118,7 +137,6 @@ class CommandeController extends Controller
 
         return view('commandes.list', compact('commandesList'));
     }
-
 
     public function articles(Commandes $commande)
     {
@@ -141,6 +159,14 @@ class CommandeController extends Controller
 
         return redirect()->route('commandes.articles')
             ->with('success', "L'aricle avec l'ID " . $article->id . " a été supprimée avec succès.");
+    }
+
+    public function delete(Commandes $commande)
+    {
+        $commande->delete();
+
+        return redirect()->route('jupes.list')
+            ->with('success', "La commande " . $commande->id . " a été supprimée avec succès.");
     }
 
     public function filterArticles(Request $request)

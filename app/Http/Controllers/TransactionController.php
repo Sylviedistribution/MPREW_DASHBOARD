@@ -21,7 +21,7 @@ class TransactionController extends Controller
     {
         $transactionsList = Transactions::all();
 
-        return view('transactions/list', compact('transactionsList'));
+        return view('transactions/mesTransactions', compact('transactionsList'));
     }
 
     public function create()

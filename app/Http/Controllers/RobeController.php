@@ -22,19 +22,6 @@ class RobeController extends Controller
         return view('robes/list', compact('robesList'));
     }
 
-
-    public function create()
-    {
-        $clientsList = Clients::all();
-        $coupesList = Coupes::all();
-        $colsList = Cols::all();
-        $manchesList = Manches::all();
-        $jupesList = Jupes::all();
-        $tissusList = Tissues::all();
-        return view('robes/create',compact('clientsList','coupesList','colsList','manchesList','jupesList','tissusList'));
-    }
-
-
     public function store(Request $request)
     {
         $request->validate([
@@ -46,8 +33,11 @@ class RobeController extends Controller
             'clientId' => 'required|numeric'
         ]);
 
+        $prix = 40000;
+
         $robe = Robes::create([
             'date' => Carbon::now(),
+            'prix' => $prix,
             'coupeId' => $request->coupeId,
             'colId' => $request->colId,
             'mancheId' => $request->mancheId,
@@ -56,10 +46,27 @@ class RobeController extends Controller
             'clientId' => $request->clientId
         ]);
 
+
+        // Récupérer le nom généré par la méthode getName()
+        $nom = $robe->getName();
+        // Attribuer le nom à l'objet robe et le sauvegarder
+        $robe->nom = $nom;
+        $robe->save();
+
         return redirect()->route('robes.list')->with('success', "Vous avez bien créé la robe " . $robe->id);
 
     }
 
+    public function create()
+    {
+        $clientsList = Clients::all();
+        $coupesList = Coupes::all();
+        $colsList = Cols::all();
+        $manchesList = Manches::all();
+        $jupesList = Jupes::all();
+        $tissusList = Tissues::all();
+        return view('robes/create', compact('clientsList', 'coupesList', 'colsList', 'manchesList', 'jupesList', 'tissusList'));
+    }
 
     public function show(string $id)
     {

@@ -11,6 +11,8 @@ class Robes extends Model
     use HasFactory;
 
     protected $fillable = [
+        'nom',
+        'prix',
         'date',
         'colId',
         'coupeId',
@@ -72,8 +74,23 @@ class Robes extends Model
         return $robesList = $query->paginate(10);
     }
 
-    public function imageUrl(): string {
-        //Generer l'url de l'image
-        return Storage::url($this->imagePath);
+    public function getName(): string
+    {
+        // Récupérer les objets associés
+        $coupe = Coupes::find($this->coupeId);
+        $col = Cols::find($this->colId);
+        $manche = Manches::find($this->mancheId);
+        $jupe = Jupes::find($this->jupeId);
+        $tissu = Tissues::find($this->tissuId);
+
+
+        // Construire le nom de la robe en fonction des éléments associés
+        return implode('_', [
+            $coupe ? $coupe->nom : '',
+            $col ? $col->nom : '',
+            $manche ? $manche->nom : '',
+            $jupe ? $jupe->nom : '',
+            $tissu ? $tissu->nom : ''
+        ]);
     }
 }

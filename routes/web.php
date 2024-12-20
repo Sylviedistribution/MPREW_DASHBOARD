@@ -28,15 +28,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
-});
+    return view('#auth.connexion');
+})->middleware('guest');
 
 Route::get('index', function () {
     return view('index');
 })->name('index');
 
 
-Route::prefix('clients/')->controller(ClientController::class)->group(function () {
+Route::middleware('admin')->prefix('clients/')->controller(ClientController::class)->group(function () {
     Route::get('index', 'index')->name('clients.list');
     Route::get('create', 'create')->name('clients.create');
     Route::post('store', 'store')->name('clients.store');
@@ -46,7 +46,7 @@ Route::prefix('clients/')->controller(ClientController::class)->group(function (
     Route::get('filter', 'filter')->name('clients.filter');
 });
 
-Route::prefix('artisans/')->controller(ArtisanController::class)->group(function () {
+Route::middleware('admin')->prefix('artisans/')->controller(ArtisanController::class)->group(function () {
     Route::get('index', 'index')->name('artisans.list');
     Route::get('create', 'create')->name('artisans.create');
     Route::post('store', 'store')->name('artisans.store');
@@ -56,7 +56,7 @@ Route::prefix('artisans/')->controller(ArtisanController::class)->group(function
     Route::get('filter', 'filter')->name('artisans.filter');
 });
 
-Route::prefix('robes/')->controller(RobeController::class)->group(function () {
+Route::middleware('admin')->prefix('robes/')->controller(RobeController::class)->group(function () {
     Route::get('index', 'index')->name('robes.list');
     Route::get('create', 'create')->name('robes.create');
     Route::post('store', 'store')->name('robes.store');
@@ -66,7 +66,7 @@ Route::prefix('robes/')->controller(RobeController::class)->group(function () {
     Route::get('filter', 'filter')->name('robes.filter');
 });
 
-Route::prefix('coupes/')->controller(CoupeController::class)->group(function () {
+Route::middleware('admin')->prefix('coupes/')->controller(CoupeController::class)->group(function () {
     Route::get('index', 'index')->name('coupes.list');
     Route::get('create', 'create')->name('coupes.create');
     Route::post('store', 'store')->name('coupes.store');
@@ -76,7 +76,7 @@ Route::prefix('coupes/')->controller(CoupeController::class)->group(function () 
     Route::get('filter', 'filter')->name('coupes.filter');
 });
 
-Route::prefix('cols/')->controller(ColController::class)->group(function () {
+Route::middleware('admin')->prefix('cols/')->controller(ColController::class)->group(function () {
     Route::get('index', 'index')->name('cols.list');
     Route::get('create', 'create')->name('cols.create');
     Route::post('store', 'store')->name('cols.store');
@@ -86,7 +86,7 @@ Route::prefix('cols/')->controller(ColController::class)->group(function () {
     Route::get('filter', 'delete')->name('cols.filter');
 });
 
-Route::prefix('manches/')->controller(MancheController::class)->group(function () {
+Route::middleware('admin')->prefix('manches/')->controller(MancheController::class)->group(function () {
     Route::get('index', 'index')->name('manches.list');
     Route::get('create', 'create')->name('manches.create');
     Route::post('store', 'store')->name('manches.store');
@@ -96,7 +96,7 @@ Route::prefix('manches/')->controller(MancheController::class)->group(function (
     Route::get('filter', 'filter')->name('manches.filter');
 });
 
-Route::prefix('jupes/')->controller(JupeController::class)->group(function () {
+Route::middleware('admin')->prefix('jupes/')->controller(JupeController::class)->group(function () {
     Route::get('index', 'index')->name('jupes.list');
     Route::get('create', 'create')->name('jupes.create');
     Route::post('store', 'store')->name('jupes.store');
@@ -106,7 +106,7 @@ Route::prefix('jupes/')->controller(JupeController::class)->group(function () {
     Route::get('filter', 'filter')->name('jupes.filter');
 });
 
-Route::prefix('tissus/')->controller(TissuController::class)->group(function () {
+Route::middleware('admin')->prefix('tissus/')->controller(TissuController::class)->group(function () {
     Route::get('index', 'index')->name('tissus.list');
     Route::get('create', 'create')->name('tissus.create');
     Route::post('store', 'store')->name('tissus.store');
@@ -117,25 +117,27 @@ Route::prefix('tissus/')->controller(TissuController::class)->group(function () 
 });
 
 Route::prefix('commandes/')->controller(CommandeController::class)->group(function () {
-    Route::get('index', 'index')->name('commandes.list');
-    Route::get('create', 'create')->name('commandes.create');
-    Route::post('store', 'store')->name('commandes.store');
-    Route::get('delete/{commande}', 'delete')->name('commandes.delete');
+    Route::get('index', 'index')->name('commandes.list')->middleware('admin');
+    Route::get('create', 'create')->name('commandes.create')->middleware('admin');
+    Route::post('store', 'store')->name('commandes.store')->middleware('admin');
+    Route::get('delete/{commande}', 'delete')->name('commandes.delete')->middleware('admin');
     Route::get('filter', 'filter')->name('commandes.filter');
     Route::get('valider/{commande}', 'valider')->name('commandes.valider');
     Route::get('artisanView', 'artisanView')->name('commandes.artisanView');
+    Route::patch('/{commande}/updateStatus', [CommandeController::class, 'updateStatus'])->name('commandes.updateStatus');
+
 
     Route::get('articles/{commande}', 'articles')->name('commandes.articles');
 
-    Route::get('articles/edit/{article}', 'articleEdit')->name('articles.edit');
-    Route::post('articles/update/{article}', 'articleUpdate')->name('articles.update');
-    Route::get('articles/delete/{article}', 'articleDelete')->name('articles.delete');
-    Route::get('articles/filter', 'filterArticles')->name('articles.filter');
+    Route::get('articles/edit/{article}', 'articleEdit')->name('articles.edit')->middleware('admin');
+    Route::post('articles/update/{article}', 'articleUpdate')->name('articles.update')->middleware('admin');
+    Route::get('articles/delete/{article}', 'articleDelete')->name('articles.delete')->middleware('admin');
+    Route::get('articles/filter', 'filterArticles')->name('articles.filter')->middleware('admin');
 
 
 });
 
-Route::prefix('paiements/')->controller(PaiementController::class)->group(function () {
+Route::middleware('admin')->prefix('paiements/')->controller(PaiementController::class)->group(function () {
     Route::get('index', 'index')->name('paiements.list');
     Route::get('create', 'create')->name('paiements.create');
     Route::post('store', 'store')->name('paiements.store');
