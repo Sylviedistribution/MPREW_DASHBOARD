@@ -91,6 +91,7 @@
                                     <td>{{$commande->total}}</td>
                                     <td>{{$commande->statut}}</td>
                                     <td>{{$commande->client->email }}</td>
+                                    <td>{{$commande->client->telephone }}</td>
                                     <td>
                                         <a href="{{route('commandes.articles',$commande)}}" class="btn btn-info btn-sm">
                                             <i class="fas fa-eye"></i> Articles
