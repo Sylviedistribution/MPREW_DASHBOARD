@@ -49,10 +49,10 @@ class ClientController extends Controller
 
 
         // Récupérer les clés
-        $keys = array_keys($dataArray);
+        $keys = array_keys($dataArray) ?? null;
 
         // Récupérer les valeurs
-        $values = array_values($dataArray);
+        $values = array_values($dataArray) ?? null;
 
         return view('clients/mensurations', compact('keys','values'));
     }
