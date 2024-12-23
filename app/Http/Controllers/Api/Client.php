@@ -21,8 +21,13 @@ class Client extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Client récupéré avec succès',
-            'data' => $client
-        ], 201);
+            'data' => [
+                'username' => $client->username,
+                'email' => $client->email,
+                'telephone' => $client->telephone,
+                'genre' => $client->genre,
+                'adresse' => $client->adresse,
+            ]        ], 201);
     }
 
 
@@ -90,6 +95,7 @@ class Client extends Controller
         $request->validate([
             'username' => 'nullable|string',
             'email' => 'nullable|email', // Assurez-vous que l'email est valide s'il est présent
+            'telephone' => 'nullable|telephone', // Assurez-vous que l'email est valide s'il est présent
             'genre' => 'nullable|string', // Assurez-vous que l'email est valide s'il est présent
             'adresse' => 'nullable|string',
             'mensurations'=> 'nullable'

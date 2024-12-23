@@ -81,6 +81,7 @@
                                     <th>Total</th>
                                     <th>Statut</th>
                                     <th>Email client</th>
+                                    <th>Telephone</th>
                                     <th>Voir articles</th>
                                     <th>Options</th>
                                     <th>Livrer</th>
@@ -101,6 +102,7 @@
                                         <td>{{$commande->total}} CFA</td>
                                         <td>{{$commande->statut}}</td>
                                         <td>{{$commande->client->email }}</td>
+                                        <td>{{$commande->client->telephone }}</td>
                                         <td>
                                             <a href="{{route('commandes.articles',$commande)}}"
                                                class="btn btn-info btn-sm">
