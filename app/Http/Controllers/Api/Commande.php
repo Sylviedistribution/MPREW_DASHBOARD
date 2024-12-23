@@ -18,7 +18,7 @@ class Commande extends Controller
         Log::info('Client authentifié : ', [$client]);
 
         // Récupérer les robes du client
-        $commandes = Commandes::where('clientId', $client->id)->with(['comm'])->get(); // Récupère les commandes associées au client
+        $commandes = Commandes::where('clientId', $client->id)->get(); // Récupère les commandes associées au client
 
         if ($commandes->isEmpty()) {
             return response()->json([
