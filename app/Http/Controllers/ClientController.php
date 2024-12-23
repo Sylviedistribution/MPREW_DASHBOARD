@@ -47,6 +47,7 @@ class ClientController extends Controller
         // Décoder le JSON en un tableau associatif
         $dataArray = json_decode($mensurations, true);
 
+
         // Récupérer les clés
         $keys = array_keys($dataArray);
 

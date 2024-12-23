@@ -17,17 +17,13 @@
                             <table class="table table-bordered text-center mb-0">
 
                                 <tbody>
+                                @foreach($keys as $index => $key)
                                     <tr>
-                                        @foreach($keys as $k)
-                                        <td>{{$k}}</td>
-                                        @endforeach
+                                        <td>{{ $key }}</td>
+                                        <td>{{ $values[$index] }}</td>
                                     </tr>
-                                    <tr>
-                                        @foreach($values as $v)
-                                            <td>{{$v}}</td>
-                                        @endforeach
+                                @endforeach
 
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
