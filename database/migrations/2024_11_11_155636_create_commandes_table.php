@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->date('date');
             $table->double('total', 8, 2);
-            $table->enum('statut', ['EN_ATTENTE', 'VALIDÉ', 'ANNULÉ', 'TERMINÉ', 'PAYÉ', 'NON_PAYÉ', 'LIVRÉ'])->default('EN_ATTENTE');
+            $table->enum('statut', ['EN_ATTENTE', 'EN_PREPARATION','VALIDÉ', 'ANNULÉ', 'TERMINÉ', 'PAYÉ', 'NON_PAYÉ', 'LIVRÉ'])->default('EN_ATTENTE');
             $table->unsignedBigInteger('clientId');
             $table->unsignedBigInteger('artisanId');
             $table->timestamps();

@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Commandes;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class Commande extends Controller
 {
@@ -17,20 +17,20 @@ class Commande extends Controller
         Log::info('Client authentifié : ', [$client]);
 
         // Récupérer les robes du client
-        $commande = Commandes::where('clientId', $client->id)->get(); // Récupère les robes associées au client
+        $commandes = Commandes::where('clientId', $client->id)->get(); // Récupère les commandes associées au client
 
-
-        if ($commande->isEmpty()) {
+        if ($commandes->isEmpty()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Aucune commande enregistré'
+                'message' => 'Aucune commande enregistrée'
             ], 404);
         }
 
         return response()->json([
             'success' => true,
-            'data' => $commande
-        ], 200);    }
+            'data' => [{"id": 11, "date": 2024 - 12 - 22, "total": 100, "statut": EN_ATTENTE, "clientId": 9, "artisanId": null, "created_at": 2024 - 12 - 22T19:31:27.000000Z, "updated_at": 2024 - 12 - 22T19:31:27.000000Z}]$commandes
+        ], 200)
+    }
 
 
     public function store(Request $request)

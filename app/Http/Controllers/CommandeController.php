@@ -31,10 +31,12 @@ class CommandeController extends Controller
         return view('commandes/artisanView', compact('commandesList'));
     }
 
-    public function valider(Commandes $commandes)
+    public function valider(Commandes $commande)
     {
+
         // Récupérer l'ID de l'artisan authentifié
         $artisanId = auth('artisan')->id();
+
         $statut = "EN_PREPARATION";
         // Vérification : Artisan authentifié ?
         if (!$artisanId) {
@@ -42,26 +44,36 @@ class CommandeController extends Controller
         }
 
         // Mettre à jour la commande
-        $commandes->update([
+        $commande->update([
             'artisanId' => $artisanId,
             'statut' => $statut,
         ]);
 
+
+        // Retourner la vue avec les commandes mises à jour
+        return redirect()->route('commandes.accepter')->with('success', 'Commande validée avec succès.');
+    }
+
+    public function mesCommandes()
+    {
+        $artisanId = auth('artisan')->id();
+
         // Récupérer la liste des commandes de l'artisan
         $commandesList = Commandes::where('artisanId', $artisanId)->get();
 
+        $statut = Commandes::getStatuts();
         // Retourner la vue avec les commandes mises à jour
-        return view('commandes/mesCommandes', compact('commandesList'))->with('success', 'Commande validée avec succès.');
+        return view('commandes/mesCommandes', compact('commandesList','statut'))->with('success', 'Commande validée avec succès.');
     }
 
 
     public function updateStatus(Request $request, Commandes $commande)
     {
-        $validated = $request->validate([
-            'statut' => 'required|string|in:En préparation,Terminée',
+        $request->validate([
+            'statut' => 'required|string',
         ]);
 
-        $commande->update(['statut' => $validated['statut']]);
+        $commande->update(['statut' => $request->statut]);
 
         return redirect()->back()->with('success', 'Le statut de la commande a été mis à jour avec succès.');
     }
@@ -140,9 +152,24 @@ class CommandeController extends Controller
 
     public function articles(Commandes $commande)
     {
-        $articlesList = CommandeArticles::where('commandeId', 'like', '%' . $commande->id . '%')->paginate(10);
+        $articlesList = CommandeArticles::where('commandeId', 'like', '%' . $commande->id . '%')->with('robe') ->paginate(10);
 
         return view('commandes/listArticles', compact('articlesList'));
+    }
+
+    public function mensurations(CommandeArticles $article)
+    {
+        $mensurations = $article->commande->client->mensurations ?? null;
+        // Décoder le JSON en un tableau associatif
+        $dataArray = json_decode($mensurations, true);
+
+        // Récupérer les clés
+        $keys = array_keys($dataArray);
+
+        // Récupérer les valeurs
+        $values = array_values($dataArray);
+
+        return view('commandes/mensurations', compact('keys','values'));
     }
 
     public function articleEdit(CommandeArticles $article)

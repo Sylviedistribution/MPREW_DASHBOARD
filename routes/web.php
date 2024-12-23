@@ -122,12 +122,16 @@ Route::prefix('commandes/')->controller(CommandeController::class)->group(functi
     Route::post('store', 'store')->name('commandes.store')->middleware('admin');
     Route::get('delete/{commande}', 'delete')->name('commandes.delete')->middleware('admin');
     Route::get('filter', 'filter')->name('commandes.filter');
+
     Route::get('valider/{commande}', 'valider')->name('commandes.valider');
     Route::get('artisanView', 'artisanView')->name('commandes.artisanView');
-    Route::patch('/{commande}/updateStatus', [CommandeController::class, 'updateStatus'])->name('commandes.updateStatus');
+    Route::get('mesCommandes', 'mesCommandes')->name('commandes.accepter');
+
+    Route::post('updateStatus/{commande}','updateStatus')->name('commandes.updateStatus');
 
 
     Route::get('articles/{commande}', 'articles')->name('commandes.articles');
+    Route::get('mensurations/{article}', 'mensurations')->name('articles.mensurations');
 
     Route::get('articles/edit/{article}', 'articleEdit')->name('articles.edit')->middleware('admin');
     Route::post('articles/update/{article}', 'articleUpdate')->name('articles.update')->middleware('admin');
@@ -148,8 +152,7 @@ Route::middleware('admin')->prefix('paiements/')->controller(PaiementController:
 });
 
 Route::prefix('livraisons/')->controller(LivraisonController::class)->group(function () {
-    Route::get('index', 'index')->name('livraisons.list');
-    Route::get('create', 'create')->name('livraisons.create');
+
     Route::post('store', 'store')->name('livraisons.store');
     Route::get('edit/{livraison}', 'edit')->name('livraisons.edit');
     Route::post('update/{livraison}', 'update')->name('livraisons.update');
@@ -169,16 +172,6 @@ Route::prefix('transactions/')->controller(TransactionController::class)->group(
 
 });
 
-Route::prefix('notification/')->controller(NotificationController::class)->group(function () {
-    Route::get('index', 'index')->name('notification.list');
-    Route::get('create', 'create')->name('notification.create');
-    Route::post('store', 'store')->name('notification.store');
-    Route::get('edit/{notifications}', 'edit')->name('notification.edit');
-    Route::post('update/{notifications}', 'update')->name('notification.update');
-    Route::get('delete/{notifications}', 'delete')->name('notification.delete');
-    Route::get('filter/{notifications}', 'filter')->name('notification.filter');
-});
-
 // AUTHENTIFICATION
 Route::controller(AuthController::class)->group(function () {
     Route::get('/login', 'login')->name('login');
@@ -187,3 +180,6 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 
+Route::get('/testYango', function () {
+    return view('testYango');
+});

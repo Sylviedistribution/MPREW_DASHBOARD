@@ -42,20 +42,16 @@
                             <table class="table table-bordered text-center mb-0">
                                 <thead>
                                 <tr>
-                                    <th>Identifiant</th>
                                     <th>Montant</th>
                                     <th>Date</th>
-                                    <th>Identifiant Artisan</th>
+                                    <th>Commande Id</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($transactionsList as $transaction)
                                 <tr>
-                                    <td>{{$transaction->id}}</td>
-                                    <td>{{$transaction->type}}</td>
                                     <td>{{$transaction->montant}}</td>
                                     <td>{{$transaction->date}}</td>
-                                    <td>{{$transaction->artisan->email}}</td>
                                 </tr>
                                 @endforeach
                                 </tbody>

@@ -7,6 +7,9 @@
         Dashboard Ma_Petite_Robe_En_Wax
     </title>
 
+    <!-- YANGO API-->
+    <script src="https://yastatic.net/taxi-widget/ya-taxi-widget.js"></script>
+
     <!-- Fonts and icons -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet"/>
     <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-icons.css" rel="stylesheet"/>
@@ -57,7 +60,7 @@
 </div>
         <!-- End of Main Content -->
 
-
+<!-- API YANGO -->
 <!--   Core JS Files   -->
 <script src="{{asset("assets/js/core/popper.min.js")}}"></script>
 <script src="{{asset("assets/js/core/bootstrap.min.js")}}"></script>

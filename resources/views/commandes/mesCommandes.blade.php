@@ -69,17 +69,22 @@
                         </a>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
+
                         <div class="table-responsive p-0">
+
                             <table class="table table-bordered text-center mb-0">
                                 <thead>
                                 <tr>
                                     <th>Identifiant</th>
                                     <th>Date</th>
+                                    <th>Date limite livraison</th>
                                     <th>Total</th>
                                     <th>Statut</th>
                                     <th>Email client</th>
                                     <th>Voir articles</th>
                                     <th>Options</th>
+                                    <th>Livrer</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -87,34 +92,46 @@
                                     <tr>
                                         <td>{{$commande->id}}</td>
                                         <td>{{$commande->date}}</td>
-                                        <td>{{$commande->total}}</td>
+                                        <td class=" @if(\Carbon\Carbon::now()<$commande->dateFin())
+                                        text-success
+                                        @else
+                                        text-danger
+                                        @endif">
+                                        {{$commande->dateFin()}}</td>
+                                        <td>{{$commande->total}} CFA</td>
                                         <td>{{$commande->statut}}</td>
                                         <td>{{$commande->client->email }}</td>
                                         <td>
-                                            <a href="{{route('commandes.articles',$commande)}}" class="btn btn-info btn-sm">
+                                            <a href="{{route('commandes.articles',$commande)}}"
+                                               class="btn btn-info btn-sm">
                                                 <i class="fas fa-eye"></i> Articles
                                             </a>
                                         </td>
                                         <td>
-                                            <form method="POST" action="{{ route('commandes.updateStatus', $commande) }}">
+                                            <form method="POST" action="{{ route('commandes.updateStatus', $commande)}}">
                                                 @csrf
-                                                @method('PATCH')
                                                 <select name="statut" class="form-select form-select-sm">
-                                                    <option value="En préparation" @if($commande->statut == 'En préparation') selected @endif>En préparation</option>
-                                                    <option value="Terminée" @if($commande->statut == 'Terminée') selected @endif>Terminée</option>
+                                                    <option ></option>
+                                                    @foreach($statut as $s)
+                                                        <option value="{{$s}}">{{$s}}</option>
+                                                    @endforeach
+
                                                 </select>
-                                                <button type="submit" class="btn btn-sm btn-primary mt-2">Mettre à jour</button>
+                                                <button type="submit" class="btn btn-sm btn-primary mt-2">MAJ
+                                                </button>
                                             </form>
                                         </td>
                                         <td>
-                                            <div class="progress">
-                                                @if($commande->statut == 'En préparation')
-                                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 50%">En préparation</div>
-                                                @elseif($commande->statut == 'Terminée')
-                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%">Terminée</div>
-                                                @else
-                                                    <div class="progress-bar bg-secondary" role="progressbar" style="width: 25%">Initiée</div>
-                                                @endif
+                                            <div class="ya-taxi-widget "
+                                                 data-ref="MPREW"
+                                                 data-clid="ak240826"
+                                                 data-apikey="xDOfBYEceqUpxtUYPGGhpYHDeWcjEpdsAC"
+                                                 data-theme="dark"
+                                                 data-size="xs"
+                                                 data-title="Livrer robe"
+                                                 data-use-location="true"
+                                                 data-app="2187871"
+                                                 data-lang="fr">
                                             </div>
                                         </td>
                                     </tr>

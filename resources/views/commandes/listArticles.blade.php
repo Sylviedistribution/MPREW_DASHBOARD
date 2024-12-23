@@ -51,31 +51,37 @@
                                 <thead>
                                 <tr>
                                     <th>Identifiant</th>
-                                    <th>Robe Id</th>
+                                    <th>Nom Robe</th>
                                     <th>Quantité</th>
                                     <th>Prix Unitaire</th>
-                                    <th>Commande Id</th>
                                     <th>Date</th>
-                                    <th>Options</th>
+                                    <th>Mensurations</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @forelse($articlesList as $articles)
                                     <tr>
                                         <td>{{ $articles->id }}</td>
-                                        <td>{{ $articles->robeId }}</td>
+                                        <td>{{ $articles->robe->nom}}</td>
                                         <td>{{ $articles->quantite }}</td>
                                         <td>{{ $articles->prixUnitaire }}</td>
-                                        <td>{{ $articles->commandeId }}</td>
                                         <td>{{ $articles->created_at }}</td>
                                         <td>
-                                            <!-- Boutons Modifier/Supprimer -->
-                                            <a href="{{ route('articles.edit', $articles) }}" class="btn btn-warning btn-sm">
-                                                <i class="fas fa-edit"></i> Modifier
-                                            </a>
-                                            <a href="{{ route('articles.delete', $articles) }}" class="btn btn-danger btn-sm"
-                                               onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')">
-                                                <i class="fas fa-trash-alt"></i> Supprimer
+                                            @if(auth('admin')->check())
+                                                <!-- Boutons Modifier/Supprimer -->
+                                                <a href="{{ route('articles.edit', $articles) }}"
+                                                   class="btn btn-warning btn-sm">
+                                                    <i class="fas fa-edit"></i> Modifier
+                                                </a>
+                                                <a href="{{ route('articles.delete', $articles) }}"
+                                                   class="btn btn-danger btn-sm"
+                                                   onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')">
+                                                    <i class="fas fa-trash-alt"></i> Supprimer
+                                                </a>
+                                            @endif
+                                            <a href="{{ route('articles.mensurations', $articles) }}"
+                                               class="btn btn-primary btn-sm">
+                                                Voir mensurations
                                             </a>
                                         </td>
                                     </tr>

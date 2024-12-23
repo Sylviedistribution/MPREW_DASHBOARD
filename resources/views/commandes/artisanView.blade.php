@@ -74,7 +74,7 @@
                                         </td>
                                         <td>
                                             <a href="{{route('commandes.valider',$commande)}}"
-                                               class="btn btn-success btn-sm">
+                                               class="btn btn-success btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir accepter cette commande ?')">
                                                 <i class="fas fa-"></i> Accepter
                                             </a>
                                         </td>

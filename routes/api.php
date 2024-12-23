@@ -79,14 +79,13 @@ Route::prefix('tissus')->controller(Tissu::class)->group(function () {
 
 // Commandes Routes
 Route::prefix('commandes')->controller(Commande::class)->group(function () {
-    Route::get('/', 'index');
+    Route::get('/', 'index')->middleware('auth:sanctum');
     Route::post('/store', 'store')->middleware('auth:sanctum');
     Route::delete('{commande}', 'delete');
     Route::get('filter', 'filter');
     Route::get('{commande}/articles', 'articles');
     Route::put('articles/{article}', 'articleUpdate');
     Route::delete('articles/{article}', 'articleDelete');
-    Route::get('articles/filter', 'filterArticles');
 });
 
 // Paiements Routes

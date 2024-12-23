@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\CommandeArticles;
 use App\Models\Commandes;
+use App\Models\Paiements;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -19,6 +20,7 @@ class Paiement extends Controller
         //
     }
 
+
     public function store(Request $request)
     {
         // Validation des données
@@ -26,7 +28,7 @@ class Paiement extends Controller
             'items' => 'required|array',
             'items.*.prix' => 'required|numeric|min:100',
             'items.*.quantite' => 'required|integer|min:1',
-            'items.*.robeId' => 'required|integer|exists:robes,id',
+            'items.*.robeId' => 'required|integer',
             'currency' => 'nullable|string|max:3',
         ]);
 
@@ -40,7 +42,6 @@ class Paiement extends Controller
         }
 
         $items = $request->input('items');
-
         function calculerTotal($items)
         {
             $total = 0;
@@ -51,15 +52,14 @@ class Paiement extends Controller
         }
 
         $total = calculerTotal($items);
-        dd($total);
         $currency = $request->input('currency', 'XOF');
         $id = Str::uuid();
 
         // Requête à l'API PayTech
         try {
             $response = Http::withHeaders([
-                'API_KEY' => env('PAYTECH_API_KEY'),
-                'API_SECRET' => env('PAYTECH_API_SECRET'),
+                'API_KEY' => 'd8f8ad0c6081458d7100abc07db3400ac1fe27a391531e3bc33fba2003e8e53a',
+                'API_SECRET' => '9578673a7a0e17c2d8ef55be7d34aa20fe287f9c957358d0c7a40ca9df329a50',
             ])->post('https://paytech.sn/api/payment/request-payment', [
                 'item_name' => "Commande client",
                 'item_price' => $total,
@@ -106,7 +106,7 @@ class Paiement extends Controller
                 $commandeArticle = CommandeArticles::create([
                     'robeId' => $item['robeId'],
                     'quantite' => $item['quantite'],
-                    'prixUnitaire' => 40000,
+                    'prixUnitaire' => $item['prix'],
                     'commandeId' => $commande->id,
                 ]);
             }
@@ -128,5 +128,6 @@ class Paiement extends Controller
             ], 500);
         }
     }
+
 
 }
