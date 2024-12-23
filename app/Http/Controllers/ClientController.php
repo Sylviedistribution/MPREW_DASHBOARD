@@ -42,6 +42,20 @@ class ClientController extends Controller
 
     }
 
+    public function showMensuration(Clients $client){
+        $mensurations = $client->mensurations ?? null;
+        // Décoder le JSON en un tableau associatif
+        $dataArray = json_decode($mensurations, true);
+
+        // Récupérer les clés
+        $keys = array_keys($dataArray);
+
+        // Récupérer les valeurs
+        $values = array_values($dataArray);
+
+        return view('clients/mensurations', compact('keys','values'));
+    }
+
     public function create()
     {
         return view('clients/create');
