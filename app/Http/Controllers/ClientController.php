@@ -56,9 +56,9 @@ class ClientController extends Controller
             $values = array_values($dataArray);
         }
         else{
-            $keys = null;
+            $keys = "";
 
-            $values = null;
+            $values = "";
         }
 
 
