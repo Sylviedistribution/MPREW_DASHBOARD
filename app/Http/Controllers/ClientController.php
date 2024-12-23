@@ -55,15 +55,9 @@ class ClientController extends Controller
             // Récupérer les valeurs
             $values = array_values($dataArray);
         }
-        else{
-            $keys = "";
-
-            $values = "";
-        }
 
 
-
-        return view('clients/mensurations', compact('keys','values'));
+        return view('clients/mensurations', $dataArray?compact('keys','values'): '');
     }
 
     public function create()
