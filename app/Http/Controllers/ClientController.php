@@ -42,7 +42,7 @@ class ClientController extends Controller
 
     }
 
-    public function showMensuration(Clients $client){
+    public function showMensurations(Clients $client){
         $mensurations = $client->mensurations ?? null;
         // Décoder le JSON en un tableau associatif
         $dataArray = json_decode($mensurations, true);
