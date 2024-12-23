@@ -48,11 +48,20 @@ class ClientController extends Controller
         $dataArray = json_decode($mensurations, true);
 
 
-        // Récupérer les clés
-        $keys = array_keys($dataArray) ?? null;
+        if($dataArray){
+            // Récupérer les clés
+            $keys = array_keys($dataArray);
 
-        // Récupérer les valeurs
-        $values = array_values($dataArray) ?? null;
+            // Récupérer les valeurs
+            $values = array_values($dataArray);
+        }
+        else{
+            $keys = null;
+
+            $values = null;
+        }
+
+
 
         return view('clients/mensurations', compact('keys','values'));
     }
