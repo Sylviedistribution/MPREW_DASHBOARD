@@ -83,7 +83,7 @@
                                         <td>{{ $client->email }}</td>
                                         <td>{{ $client->adresse }}</td>
                                         <td> <a href="{{route('clients.mensurations',$client)}}" class="btn btn-info btn-sm">
-                                                <i class="fas fa-edit"></i> Modifier
+                                                <i class="fas fa-edit"></i> Afficher
                                             </a></td>
                                         <td>{{ $client->genre }}</td>
                                         <td>
