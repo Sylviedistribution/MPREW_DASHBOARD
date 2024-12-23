@@ -78,6 +78,7 @@
                                     <th>Total</th>
                                     <th>Statut</th>
                                     <th>Email client</th>
+                                    <th>Téléphone</th>
                                     <th>Voir articles</th>
                                     <th>Options</th>
                                 </tr>

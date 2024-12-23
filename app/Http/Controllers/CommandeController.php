@@ -19,7 +19,7 @@ class CommandeController extends Controller
 
     public function index()
     {
-        $commandesList = Commandes::where('artisanId','%' . "" . '%')->with(['client:id,email'])->paginate(10);
+        $commandesList = Commandes::with(['client:id,email'])->paginate(10);
 
         return view('commandes/list', compact('commandesList'));
     }

@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 
 class Client extends Controller
 {
-    public function index(){
+    public function index()
+    {
         // Vérifier si le client est authentifié
         $client = auth('sanctum')->user();
 
@@ -27,11 +28,12 @@ class Client extends Controller
                 'telephone' => $client->telephone,
                 'genre' => $client->genre,
                 'adresse' => $client->adresse,
-            ]        ], 201);
+            ]], 201);
     }
 
 
-    public function getMensuration(){
+    public function getMensuration()
+    {
         $client = auth('sanctum')->user();
 
         if (!$client) {
@@ -60,24 +62,23 @@ class Client extends Controller
             'success' => true,
             'message' => 'Mensurations récupérées avec succès',
             'mensurations' => [
-                'tourCou' => (string) ($mensurations['tourCou'] ?? ''),
-                'largeurEpaule' => (string) ($mensurations['largeurEpaule'] ?? ''),
-                'tourPoitrine' => (string) ($mensurations['tourPoitrine'] ?? ''),
-                'hauteurPoitrine' => (string) ($mensurations['hauteurPoitrine'] ?? ''),
-                'tourDessousPoitrine' => (string) ($mensurations['tourDessousPoitrine'] ?? ''),
-                'tourTaille' => (string) ($mensurations['tourTaille'] ?? ''),
-                'tourTailleHaute' => (string) ($mensurations['tourTailleHaute'] ?? ''),
-                'tourHanche' => (string) ($mensurations['tourHanche'] ?? ''),
-                'tourBras' => (string) ($mensurations['tourBras'] ?? ''),
-                'longueurBras' => (string) ($mensurations['longueurBras'] ?? ''),
-                'longueurManches' => (string) ($mensurations['longueurManches'] ?? ''),
-                'tourPoignet' => (string) ($mensurations['tourPoignet'] ?? ''),
-                'longueurDos' => (string) ($mensurations['longueurDos'] ?? ''),
-                'longueurRobe' => (string) ($mensurations['longueurRobe'] ?? ''),
+                'tourCou' => (string)($mensurations['tourCou'] ?? ''),
+                'largeurEpaule' => (string)($mensurations['largeurEpaule'] ?? ''),
+                'tourPoitrine' => (string)($mensurations['tourPoitrine'] ?? ''),
+                'hauteurPoitrine' => (string)($mensurations['hauteurPoitrine'] ?? ''),
+                'tourDessousPoitrine' => (string)($mensurations['tourDessousPoitrine'] ?? ''),
+                'tourTaille' => (string)($mensurations['tourTaille'] ?? ''),
+                'tourTailleHaute' => (string)($mensurations['tourTailleHaute'] ?? ''),
+                'tourHanche' => (string)($mensurations['tourHanche'] ?? ''),
+                'tourBras' => (string)($mensurations['tourBras'] ?? ''),
+                'longueurBras' => (string)($mensurations['longueurBras'] ?? ''),
+                'longueurManches' => (string)($mensurations['longueurManches'] ?? ''),
+                'tourPoignet' => (string)($mensurations['tourPoignet'] ?? ''),
+                'longueurDos' => (string)($mensurations['longueurDos'] ?? ''),
+                'longueurRobe' => (string)($mensurations['longueurRobe'] ?? ''),
             ],
         ], 200);
     }
-
 
 
     public function update(Request $request)
@@ -98,7 +99,7 @@ class Client extends Controller
             'telephone' => 'nullable|telephone', // Assurez-vous que l'email est valide s'il est présent
             'genre' => 'nullable|string', // Assurez-vous que l'email est valide s'il est présent
             'adresse' => 'nullable|string',
-            'mensurations'=> 'nullable'
+            'mensurations' => 'nullable'
             // Ajoutez d'autres champs selon les informations que vous souhaitez modifier
         ]);
 
@@ -120,7 +121,7 @@ class Client extends Controller
             $client->adresse = $request->input('adresse');
         }
 
-        if($request->has('mensurations')){
+        if ($request->has('mensurations')) {
             $client->mensurations = json_encode($request->input('mensurations'));
         }
         // Sauvegarde des modifications dans la base de données
