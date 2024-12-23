@@ -40,7 +40,7 @@ Route::middleware('admin')->prefix('clients/')->controller(ClientController::cla
     Route::get('index', 'index')->name('clients.list');
     Route::get('create', 'create')->name('clients.create');
     Route::post('store', 'store')->name('clients.store');
-    Route::post('mensurations', 'showMensurations')->name('clients.mensurations');
+    Route::get('mensurations', 'showMensurations')->name('clients.mensurations');
     Route::get('edit/{client}', 'edit')->name('clients.edit');
     Route::post('update/{client}', 'update')->name('clients.update');
     Route::get('delete/{client}', 'delete')->name('clients.delete');
