@@ -134,7 +134,7 @@
                                                  data-use-location="true"
                                                  data-app="2187871"
                                                  data-point-b="{{ $longitude }},{{ $latitude }}"
-
+                                                 data-proxy-url="https://yango.go.link/route?start-lat={start-lat}&start-lon={start-lon}&end-lat={end-lat}&end-lon={end-lon}&adj_adgroup=widget&ref={ref}&adj_t=vokme8e_nd9s9z9&lang=ru&adj_deeplink_js=1&utm_source=widget&adj_fallback=https%3A%2F%2Fyango.com%2Fen_int%2Forder%2F%3Fgfrom%3D{start-lon}%2C{start-lat}%26gto%3D{end-lon}%2C{end-lat}%26ref%3D{ref}"
                                                  data-lang="fr">
                                             </div>
                                         </td>
