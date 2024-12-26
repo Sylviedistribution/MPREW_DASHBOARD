@@ -53,8 +53,8 @@
                                     <th>Date</th>
                                     <th>Total</th>
                                     <th>Statut</th>
-                                    <th>Email client</th>
-                                    <th>Téléphone</th>
+                                    <th>Adresse</th>
+                                    <th>Téléphone client</th>
                                     <th>Voir articles</th>
                                     <th>Options</th>
                                 </tr>
@@ -66,8 +66,8 @@
                                         <td>{{$commande->date}}</td>
                                         <td>{{$commande->total}}</td>
                                         <td>{{$commande->statut}}</td>
-                                        <td>{{$commande->client->email }}</td>
                                         <td>{{$commande->client->telephone }}</td>
+                                        <td>{{$commande->client->adresse }}</td>
                                         <td>
                                             <a href="{{route('commandes.articles',$commande)}}"
                                                class="btn btn-info btn-sm">
