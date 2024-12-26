@@ -71,7 +71,7 @@
                     </div>
 
                     <div class="form-group mt-3">
-                        <button type="button" class="btn btn-primary">Inscrire</button>
+                        <button type="submit" class="btn btn-primary">Inscrire</button>
                     </div>
                 </form>
             </div>
