@@ -15,7 +15,7 @@
     <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-icons.css" rel="stylesheet"/>
     <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-svg.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- CSS Files -->
     <style>
@@ -29,6 +29,23 @@
             .sidenav.show {
                 transform: translateX(0);
             }
+            .navbar-toggler {
+                display: block;
+            }
+        }
+        .navbar-toggler {
+            display: none;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1050;
+            border: 2px solid #000;
+            background-color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%280, 0, 0, 0.5%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
         }
     </style>
     <link href="{{ asset('bootstrap.css') }}" rel="stylesheet">
@@ -82,22 +99,12 @@
 </div>
         <!-- End of Main Content -->
 
-<!-- API YANGO -->
 <!--   Core JS Files   -->
 <script src="{{asset("assets/js/core/popper.min.js")}}"></script>
 <script src="{{asset("assets/js/core/bootstrap.min.js")}}"></script>
 <script src="{{asset("assets/js/plugins/perfect-scrollbar.min.js")}}"></script>
 <script src="{{asset("assets/js/plugins/smooth-scrollbar.min.js")}}"></script>
 <script src="{{asset("assets/js/plugins/chartjs.min.js")}}"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('.navbar-toggler').click(function () {
-            $('#sidenav-main').toggleClass('show');
-        });
-    });
-</script>
+
 </body>
 </html>

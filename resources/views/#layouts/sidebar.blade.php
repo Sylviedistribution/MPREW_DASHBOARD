@@ -1,14 +1,17 @@
+
 <div class="min-height-300 bg-dark position-absolute w-100"></div>
 <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4" id="sidenav-main">
     <div class="sidenav-header">
         <!-- Button for hamburger menu -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidenav-collapse-main" aria-controls="sidenav-collapse-main" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+
         <a class="navbar-brand m-0" href="{{route('index')}}">
             <img src="{{asset('assets/img/logo_icon.png')}}" width="50px" height="80px" class="navbar-brand-img" alt="main_logo">
             <span class="ms-1 font-weight-bold">MPREW</span>
         </a>
+        <!-- Button for hamburger menu -->
+        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#sidenav-collapse-main" aria-controls="sidenav-collapse-main" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
     </div>
     <hr class="horizontal dark mt-0">
     <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
@@ -135,3 +138,14 @@
         </ul>
     </div>
 </aside>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.navbar-toggler').click(function () {
+            $('#sidenav-main').toggleClass('show');
+        });
+    });
+</script>
