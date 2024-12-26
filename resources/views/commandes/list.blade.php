@@ -36,9 +36,9 @@
                     <label style="color: white" for="statut">Statut:</label>
                     <select class="form-select" name="statut">
                         <option value="">-- Sélectionner --</option>
-                        <option value="En préparation">En préparation
-                        </option>
-                        <option value="Terminee">Terminée</option>
+                        <option value="EN_PREPARATION">EN ATTENTE</option>
+                        <option value="EN_ATTENTE">EN PREPARATION</option>
+                        <option value="TERMINEE">TERMINEE</option>
                     </select> @error('statut')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
