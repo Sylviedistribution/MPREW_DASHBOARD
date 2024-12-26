@@ -128,7 +128,7 @@
                                                      data-title="Livrer robe"
                                                      data-use-location="true"
                                                      data-app="2187871"
-                                                     data-point-b="14.738567,-17.456528"
+                                                     data-point-b="14.7414,-17.4721"
                                                      data-lang="fr">
                                                 </div>
                                             @endif
