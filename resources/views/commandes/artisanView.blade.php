@@ -66,8 +66,8 @@
                                         <td>{{$commande->date}}</td>
                                         <td>{{$commande->total}}</td>
                                         <td>{{$commande->statut}}</td>
-                                        <td>{{$commande->client->telephone }}</td>
                                         <td>{{$commande->client->adresse }}</td>
+                                        <td>{{$commande->client->telephone }}</td>
                                         <td>
                                             <a href="{{route('commandes.articles',$commande)}}"
                                                class="btn btn-info btn-sm">

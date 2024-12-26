@@ -80,8 +80,8 @@
                                     <th>Date limite livraison</th>
                                     <th>Total</th>
                                     <th>Statut</th>
-                                    <th>Email client</th>
-                                    <th>Téléphone</th>
+                                    <th>Adresse</th>
+                                    <th>Téléphone client</th>
                                     <th>Voir articles</th>
                                     <th>Options</th>
                                     <th>Livrer</th>
@@ -101,7 +101,7 @@
                                         {{$commande->dateFin()}}</td>
                                         <td>{{$commande->total}} CFA</td>
                                         <td>{{$commande->statut}}</td>
-                                        <td>{{$commande->client->email }}</td>
+                                        <td>{{$commande->client->adresse }}</td>
                                         <td>{{$commande->client->telephone }}</td>
                                         <td>
                                             <a href="{{route('commandes.articles',$commande)}}"
