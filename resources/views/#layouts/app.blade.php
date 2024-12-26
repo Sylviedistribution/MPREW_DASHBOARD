@@ -17,8 +17,20 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 
     <!-- CSS Files -->
+    <style>
+        .sidenav {
+            transition: transform 0.3s ease;
+        }
+        @media (max-width: 768px) {
+            .sidenav {
+                transform: translateX(-100%);
+            }
+            .sidenav.show {
+                transform: translateX(0);
+            }
+        }
+    </style>
     <link href="{{ asset('bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     <link id="pagestyle" href="{{ asset('assets/css/argon-dashboard.css?v=2.1.0') }}" rel="stylesheet"/>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet"/>
     <link rel="icon" type="image/png" href="{{asset("assets/img/logo_icon.png")}}">
@@ -35,6 +47,14 @@
 
     <!-- Custom Script -->
     <script src="{{ asset('assets/js/myscript.js') }}"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.navbar-toggler').click(function () {
+                $('#sidenav-main').toggleClass('show');
+            });
+        });
+    </script>
 </head>
 
 <body id="page-top">
