@@ -25,7 +25,8 @@ class RobeController extends Controller
         $jupes = Jupes::all();
         $tissus = Tissues::all();
 
-        return view('robes/list', compact('robesList', 'clients', 'coupes', 'cols', 'manches', 'jupes', 'tissus'));    }
+        return view('robes/list', compact('robesList', 'clients', 'coupes', 'cols', 'manches', 'jupes', 'tissus'));
+    }
 
     public function store(Request $request)
     {
@@ -99,6 +100,13 @@ class RobeController extends Controller
     {
         $robesList = Robes::filterBy($request->dateInsertion, $request->client, $request->coupe, $request->col, $request->manche, $request->jupe, $request->tissu);
 
-        return view('robes.list', compact('robesList'));
+        $clients = Clients::all();
+        $coupes = Coupes::all();
+        $cols = Cols::all();
+        $manches = Manches::all();
+        $jupes = Jupes::all();
+        $tissus = Tissues::all();
+
+        return view('robes/list', compact('robesList', 'clients', 'coupes', 'cols', 'manches', 'jupes', 'tissus'));
     }
 }
