@@ -42,28 +42,28 @@ class ClientController extends Controller
 
     }
 
-    public function showMensurations(Clients $client){
+    public function create()
+    {
+        return view('clients/create');
+    }
+
+    public function showMensurations(Clients $client)
+    {
         $mensurations = $client->mensurations ?? null;
         // Décoder le JSON en un tableau associatif
         $dataArray = json_decode($mensurations, true);
 
 
-        // Vérifier si le tableau $dataArray est nul ou vide avant de passer à la vue
-        if (empty($dataArray)) {
-            // Si le tableau est vide, vous pouvez passer un tableau vide
-            return view('clients/mensurations', []);
-        } else {
-            // Sinon, passer les variables à la vue via compact
-            $keys = array_keys($dataArray);
-            $values = array_values($dataArray);
+        // Si $dataArray est vide, on crée des tableaux vides pour keys et values
+        $keys = [];
+        $values = [];
 
-            // Passer les valeurs à la vue
-            return view('clients/mensurations', compact('keys', 'values'));
-        }   }
+        if (!empty($dataArray)) {
+            $keys = array_keys($dataArray);  // Récupère les clés du tableau
+            $values = array_values($dataArray);  // Récupère les valeurs du tableau
+        }
 
-    public function create()
-    {
-        return view('clients/create');
+        return view('clients/mensurations', compact('keys', 'values'));
     }
 
     public function edit(Clients $client)
