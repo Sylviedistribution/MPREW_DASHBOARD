@@ -58,7 +58,6 @@
                                     </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">1</div>
                                     <div class="text-success small">
-                                        <i class="fas fa-arrow-up"></i> +8% ce mois-ci
                                     </div>
                                 </div>
                                 <div class="col-auto">
