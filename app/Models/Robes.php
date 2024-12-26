@@ -58,7 +58,7 @@ class Robes extends Model
         return $this->belongsTo(Tissues::class, 'tissuId');
     }
 
-    public static function filterBy(  $dateInsertion = null,  $clientId = null)
+    public static function filterBy( $dateInsertion = null,  $client = null, $coupe = null, $col = null, $manche = null, $jupe = null, $tissu = null)
     {
         $query = Robes::query();
 
@@ -66,8 +66,28 @@ class Robes extends Model
             $query->where('created_at', 'like', '%' . $dateInsertion . '%');
         }
 
-        if ($clientId) {
-            $query->where('clientId', 'like', '%' . $clientId . '%');
+        if ($client) {
+            $query->where('clientId', 'like', '%' . $client . '%');
+        }
+
+        if ($coupe) {
+            $query->where('coupeId', 'like', '%' . $coupe . '%');
+        }
+
+        if ($col) {
+            $query->where('colId', 'like', '%' . $col . '%');
+        }
+
+        if ($manche) {
+            $query->where('mancheId', 'like', '%' . $manche . '%');
+        }
+
+        if ($jupe) {
+            $query->where('jupeId', 'like', '%' . $jupe . '%');
+        }
+
+        if ($tissu) {
+            $query->where('tissuId', 'like', '%' . $tissu . '%');
         }
 
 

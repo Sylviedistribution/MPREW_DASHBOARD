@@ -17,7 +17,7 @@ class RobeController extends Controller
 
     public function index()
     {
-        $robesList = Robes::all();
+        $robesList = Robes::with('client', 'coupe', 'col', 'manche', 'jupe', 'tissu')->get();
 
         return view('robes/list', compact('robesList'));
     }
@@ -92,7 +92,7 @@ class RobeController extends Controller
 
     public function filter(Request $request)
     {
-        $robesList = Robes::filterBy($request->dateInsertion, $request->clientId);
+        $robesList = Robes::filterBy($request->dateInsertion, $request->client, $request->coupe, $request->col, $request->manche, $request->jupe, $request->tissu);
 
         return view('robes.list', compact('robesList'));
     }
