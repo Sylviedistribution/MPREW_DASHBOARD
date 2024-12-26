@@ -13,7 +13,7 @@ class Artisans extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $protected = ['email','password'];
+    protected $fillable = ['username','email','etat','adresse','telephone'];
 
     public static function filterBy($username = null, $email = null, $telephone = null, $etat = null){
         $query = Artisans::query();
