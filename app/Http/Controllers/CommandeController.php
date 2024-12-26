@@ -13,6 +13,7 @@ use App\Models\Robes;
 use App\Models\Tissues;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class CommandeController extends Controller
 {
@@ -63,7 +64,24 @@ class CommandeController extends Controller
 
         $statut = Commandes::getStatuts();
         // Retourner la vue avec les commandes mises à jour
-        return view('commandes/mesCommandes', compact('commandesList','statut'))->with('success', 'Commande validée avec succès.');
+
+        // L'adresse à géocoder
+        $adresse = Commandes::with('client: adresse');
+
+        // Appeler l'API de géocodage pour obtenir les coordonnées
+        $response = Http::get('https://api.distancematrix.ai/maps/api/geocode/json', [
+            'address' => $adresse,
+            'key' => 'PDEdeRW6YJORMRgcPMlmoNB7istj2kJLg2PGrEhGZGCjvdux8St5jJFvzRDS1CNh'
+        ]);
+
+        $data = $response->json();
+
+        // Extraire la latitude et la longitude de la réponse
+        $latitude = $data['results'][0]['geometry']['location']['lat'] ?? null;
+        $longitude = $data['results'][0]['geometry']['location']['lng'] ?? null;
+
+        // Passer les coordonnées à la vue
+        return view('commandes/mesCommandes', compact('commandesList','statut','latitude', 'longitude'))->with('success', 'Commande validée avec succès.');
     }
 
 

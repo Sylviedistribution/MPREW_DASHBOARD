@@ -133,6 +133,8 @@
                                                  data-title="Livrer robe"
                                                  data-use-location="true"
                                                  data-app="2187871"
+                                                 data-point-b="{{ $longitude }},{{ $latitude }}"
+
                                                  data-lang="fr">
                                             </div>
                                         </td>
