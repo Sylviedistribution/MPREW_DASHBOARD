@@ -88,6 +88,7 @@ class CommandeController extends Controller
                 'latitude' => $latitude,
                 'longitude' => $longitude,
             ];
+            return ($adresse);
         }
 
         // Passer les commandes et les coordonnées à la vue

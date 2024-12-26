@@ -56,7 +56,7 @@ class Commandes extends Model
         }
 
         if ($total) {
-            $query->where('total', '>=', $total);
+            $query->where('total', '<=', $total);
         }
 
         if ($statut) {
