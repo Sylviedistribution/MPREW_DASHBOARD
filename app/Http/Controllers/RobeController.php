@@ -17,10 +17,15 @@ class RobeController extends Controller
 
     public function index()
     {
-        $robesList = Robes::with('client', 'coupe', 'col', 'manche', 'jupe', 'tissu')->get();
+        $robesList = Robes::all();
+        $clients = Clients::all();
+        $coupes = Coupes::all();
+        $cols = Cols::all();
+        $manches = Manches::all();
+        $jupes = Jupes::all();
+        $tissus = Tissues::all();
 
-        return view('robes/list', compact('robesList'));
-    }
+        return view('robes/list', compact('robesList', 'clients', 'coupes', 'cols', 'manches', 'jupes', 'tissus'));    }
 
     public function store(Request $request)
     {

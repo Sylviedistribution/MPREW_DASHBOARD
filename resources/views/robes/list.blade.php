@@ -20,7 +20,7 @@
                     <label style="color: white" for="client">Client:</label>
                     <select class="form-control @error('client') is-invalid @enderror" id="client" name="client">
                         <option value="">-- Sélectionnez --</option>
-                        @foreach($robesList->client as $client)
+                        @foreach($client as $client)
                             <option value="{{ $client->id }}" {{ request()->get('client') == $client->id ? 'selected' : '' }}>{{ $client->username }}</option>
                         @endforeach
                     </select>
@@ -35,7 +35,7 @@
                     <label style="color: white" for="coupe">Coupe:</label>
                     <select class="form-control @error('coupe') is-invalid @enderror" id="coupe" name="coupe">
                         <option value="">-- Sélectionnez --</option>
-                        @foreach($robesList->coupe as $coupe)
+                        @foreach($coupe as $coupe)
                             <option value="{{ $coupe->id }}" {{ request()->get('coupe') == $coupe->id ? 'selected' : '' }}>{{ $coupe->nom }}</option>
                         @endforeach
                     </select>
@@ -50,7 +50,7 @@
                     <label style="color: white" for="col">Col:</label>
                     <select class="form-control @error('col') is-invalid @enderror" id="col" name="col">
                         <option value="">-- Sélectionnez --</option>
-                        @foreach($robesList->col as $col)
+                        @foreach($col as $col)
                             <option value="{{ $col->id }}" {{ request()->get('col') == $col->id ? 'selected' : '' }}>{{ $col->nom }}</option>
                         @endforeach
                     </select>
@@ -65,7 +65,7 @@
                     <label style="color: white" for="manche">Manches:</label>
                     <select class="form-control @error('manche') is-invalid @enderror" id="manche" name="manche">
                         <option value="">-- Sélectionnez --</option>
-                        @foreach($robesList->manche as $manche)
+                        @foreach($manche as $manche)
                             <option value="{{ $manche->id }}" {{ request()->get('manche') == $manche->id ? 'selected' : '' }}>{{ $manche->nom }}</option>
                         @endforeach
                     </select>
@@ -80,7 +80,7 @@
                     <label style="color: white" for="jupe">Jupe:</label>
                     <select class="form-control @error('jupe') is-invalid @enderror" id="jupe" name="jupe">
                         <option value="">-- Sélectionnez --</option>
-                        @foreach($robesList->jupe as $jupe)
+                        @foreach($jupe as $jupe)
                             <option value="{{ $jupe->id }}" {{ request()->get('jupe') == $jupe->id ? 'selected' : '' }}>{{ $jupe->nom }}</option>
                         @endforeach
                     </select>
@@ -95,7 +95,7 @@
                     <label style="color: white" for="tissu">Tissu:</label>
                     <select class="form-control @error('tissu') is-invalid @enderror" id="tissu" name="tissu">
                         <option value="">-- Sélectionnez --</option>
-                        @foreach($robesList->tissu as $tissu)
+                        @foreach($tissu as $tissu)
                             <option value="{{ $tissu->id }}" {{ request()->get('tissu') == $tissu->id ? 'selected' : '' }}>{{ $tissu->nom }}</option>
                         @endforeach
                     </select>
