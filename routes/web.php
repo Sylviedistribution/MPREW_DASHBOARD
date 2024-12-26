@@ -33,7 +33,7 @@ Route::get('/', function () {
 
 Route::get('index', function () {
     return view('index');
-})->name('index')->middleware('auth');
+})->name('index')->middleware('login');
 
 
 Route::middleware('admin')->prefix('clients/')->controller(ClientController::class)->group(function () {
