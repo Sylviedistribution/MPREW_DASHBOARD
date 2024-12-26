@@ -45,10 +45,14 @@
                 </div>
 
                 <div class="form-group col-sm-6 col-md-2 me-2">
-                    <label style="color: white" for="email">Email:</label>
-                    <input type="text" class="form-control @error('email') is-invalid @enderror" id="email"
-                           name="email" value="{{ request()->get('email', '') }}">
-                    @error('email')
+                    <label style="color: white" for="genre">Genre:</label>
+                    <select class="form-select" name="genre">
+                        <option value="">-- Sélectionner --</option>
+                        <option value="M">Masculin
+                        </option>
+                        <option value="F">Féminin</option>
+                    </select>
+                    @error('genre')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

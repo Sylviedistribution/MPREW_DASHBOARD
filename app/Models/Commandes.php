@@ -12,6 +12,12 @@ class Commandes extends Model
 {
     use HasFactory;
 
+    public const STATUTS = [
+        'TERMINE',
+        'ANNULEE',
+    ];
+
+    // Déclaration des valeurs ENUM comme constante
     protected $fillable = [
         'date',
         'total',
@@ -20,30 +26,16 @@ class Commandes extends Model
         'artisanId'
     ];
 
-    // Déclaration des valeurs ENUM comme constante
-    public const STATUTS = [
-        'TERMINE',
-        'ANNULEE',
-    ];
-
     // Méthode pour récupérer les valeurs ENUM
+
     public static function getStatuts()
     {
         return self::STATUTS;
     }
 
     // Relation avec le modèle Client
-    public function client()
-    {
-        return $this->belongsTo(Clients::class, 'clientId');
-    }
 
-    public function commandeArticle()
-    {
-        return $this->hasMany(CommandeArticles::class, 'commandeId', 'id');
-    }
-
-    public static function filterBy($dateDebut = null, $dateFin = null, $total = null, $statut = null, $email = null)
+    public static function filterBy($dateDebut = null, $dateFin = null, $total = null, $statut = null, $genre = null)
     {
         $query = Commandes::query();
 
@@ -63,14 +55,22 @@ class Commandes extends Model
             $query->where('statut', 'like', '%' . $statut . '%');
         }
 
-        if ($email) {
+        if ($genre) {
             // Joindre la table clients pour filtrer les commandes par email du client
-            $query->whereHas('client', function ($q) use ($email) {
-                $q->where('email', $email);
-            });
+            $query->where('genre', 'like', '%' . $genre . '%');
         }
 
         return $query->paginate(10);
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(Clients::class, 'clientId');
+    }
+
+    public function commandeArticle()
+    {
+        return $this->hasMany(CommandeArticles::class, 'commandeId', 'id');
     }
 
     public function dateFin()

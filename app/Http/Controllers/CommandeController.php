@@ -174,7 +174,7 @@ class CommandeController extends Controller
 
     public function filter(Request $request)
     {
-        $commandesList = Commandes::filterBy($request->dateDebut, $request->dateFin, $request->total, $request->statut, $request->email);
+        $commandesList = Commandes::filterBy($request->dateDebut, $request->dateFin, $request->total, $request->statut, $request->email, $request->genre);
 
         return view('commandes.list', compact('commandesList'));
     }
