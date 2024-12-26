@@ -37,3 +37,13 @@ $(document).ready(function() {
         return $state;
     }
 });
+
+// Sélectionner le bouton hamburger et le sidebar
+const hamburger = document.getElementById('hamburger-menu');
+const sidenav = document.getElementById('sidenav-main');
+
+// Ajouter un événement de clic pour ouvrir/fermer le sidebar
+hamburger.addEventListener('click', () => {
+    sidenav.classList.toggle('closed');
+});
+
