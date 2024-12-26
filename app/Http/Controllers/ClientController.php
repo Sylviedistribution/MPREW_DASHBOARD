@@ -48,17 +48,18 @@ class ClientController extends Controller
         $dataArray = json_decode($mensurations, true);
 
 
-        if($dataArray){
-            // Récupérer les clés
+        // Vérifier si le tableau $dataArray est nul ou vide avant de passer à la vue
+        if (empty($dataArray)) {
+            // Si le tableau est vide, vous pouvez passer un tableau vide
+            return view('clients/mensurations', []);
+        } else {
+            // Sinon, passer les variables à la vue via compact
             $keys = array_keys($dataArray);
-
-            // Récupérer les valeurs
             $values = array_values($dataArray);
-        }
 
-
-        return view('clients/mensurations', $dataArray?compact('keys','values'): '');
-    }
+            // Passer les valeurs à la vue
+            return view('clients/mensurations', compact('keys', 'values'));
+        }   }
 
     public function create()
     {
