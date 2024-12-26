@@ -20,7 +20,7 @@
                                 @foreach($keys as $index => $key)
                                     <tr>
                                         <td>{{ $key }}</td>
-                                        <td>{{ $values[$index] }}</td>
+                                        <td>{{ $values[$index] ?? 'Aucune mesure' }}</td>
                                     </tr>
                                 @endforeach
 
