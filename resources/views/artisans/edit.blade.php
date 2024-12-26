@@ -33,17 +33,12 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="etat" class="form-control-label">Email</label>
+                                <label for="etat" class="form-control-label @error('etat') is-invalid @enderror">Etat</label>
                                 <select name="etat" id="etat" class="form-control">
                                     <option value="1" {{ old('etat', $artisan->etat) == 1 ? 'Actif' : 'Bloqué' }}>Actif</option>
                                     <option value="1">Actif</option>
                                     <option value="0">Bloqué</option>
                                 </select>
-
-                                </select>
-                                <input class="form-control @error('etat') is-invalid @enderror"
-                                       name="etat" type="etat" value="{{ old('etat', $artisan->etat) }}"
-                                       placeholder="jesse@example.com" onfocus="focused(this)" onfocusout="defocused(this)">
                                 @error('etat')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
