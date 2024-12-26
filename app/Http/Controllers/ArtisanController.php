@@ -58,8 +58,6 @@ class ArtisanController extends Controller
         $request->validate([
             "username" => "required",
             "email" => "required",
-            "password" => "required",
-            "telephone" => "required",
             "adresse" => "required",
             "etat" => "required",
         ]);
