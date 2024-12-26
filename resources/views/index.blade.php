@@ -13,9 +13,8 @@
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                         Nombre de Clients
                                     </div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">1,250</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">3</div>
                                     <div class="text-success small">
-                                        <i class="fas fa-arrow-up"></i> +10% ce mois-ci
                                     </div>
                                 </div>
                                 <div class="col-auto">
@@ -35,9 +34,8 @@
                                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                         Nombre d'Artisans
                                     </div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">75</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">2</div>
                                     <div class="text-danger small">
-                                        <i class="fas fa-arrow-down"></i> -5% ce mois-ci
                                     </div>
                                 </div>
                                 <div class="col-auto">
@@ -58,7 +56,7 @@
                                     <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                         Commandes Terminées
                                     </div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">980</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">1</div>
                                     <div class="text-success small">
                                         <i class="fas fa-arrow-up"></i> +8% ce mois-ci
                                     </div>
@@ -80,9 +78,8 @@
                                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                         Revenus Totaux
                                     </div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">1.205.000 FCFA</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">500 FCFA</div>
                                     <div class="text-success small">
-                                        <i class="fas fa-arrow-up"></i> +15% ce mois-ci
                                     </div>
                                 </div>
                                 <div class="col-auto">
@@ -109,7 +106,7 @@
                                         </div>
                                         <div class="d-flex flex-column">
                                             <h6 class="mb-1 text-dark text-sm">Femme</h6>
-                                            <span class="text-xs">1200 achats, <span class="font-weight-bold">75% des ventes</span></span>
+                                            <span class="text-xs">4 achats, <span class="font-weight-bold">100% des ventes</span></span>
                                         </div>
                                     </div>
                                     <div class="d-flex">
@@ -123,7 +120,7 @@
                                         </div>
                                         <div class="d-flex flex-column">
                                             <h6 class="mb-1 text-dark text-sm">Homme</h6>
-                                            <span class="text-xs">800 achats, <span class="font-weight-bold">30% des ventes</span></span>
+                                            <span class="text-xs">0 achats, <span class="font-weight-bold">0% des ventes</span></span>
                                         </div>
                                     </div>
                                     <div class="d-flex">
