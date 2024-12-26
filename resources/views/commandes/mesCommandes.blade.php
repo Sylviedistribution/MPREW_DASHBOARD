@@ -89,54 +89,50 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($commandesList as $commande)
+                                @foreach($commandesList as $index => $commande)
                                     <tr>
-                                        <td>{{$commande->id}}</td>
-                                        <td>{{$commande->date}}</td>
-                                        <td class=" @if(\Carbon\Carbon::now()<$commande->dateFin())
-                                        text-success
-                                        @else
-                                        text-danger
-                                        @endif">
-                                        {{$commande->dateFin()}}</td>
-                                        <td>{{$commande->total}} CFA</td>
-                                        <td>{{$commande->statut}}</td>
-                                        <td>{{$commande->client->adresse }}</td>
-                                        <td>{{$commande->client->telephone }}</td>
+                                        <td>{{ $commande->id }}</td>
+                                        <td>{{ $commande->date }}</td>
+                                        <td class="@if(\Carbon\Carbon::now() < $commande->dateFin()) text-success @else text-danger @endif">{{ $commande->dateFin() }}</td>
+                                        <td>{{ $commande->total }} CFA</td>
+                                        <td>{{ $commande->statut }}</td>
+                                        <td>{{ $commande->client->adresse }}</td>
+                                        <td>{{ $commande->client->telephone }}</td>
                                         <td>
-                                            <a href="{{route('commandes.articles',$commande)}}"
+                                            <a href="{{ route('commandes.articles', $commande) }}"
                                                class="btn btn-info btn-sm">
                                                 <i class="fas fa-eye"></i> Articles
                                             </a>
                                         </td>
                                         <td>
-                                            <form method="POST" action="{{ route('commandes.updateStatus', $commande)}}">
+                                            <form method="POST"
+                                                  action="{{ route('commandes.updateStatus', $commande) }}">
                                                 @csrf
                                                 <select name="statut" class="form-select form-select-sm">
-                                                    <option ></option>
+                                                    <option></option>
                                                     @foreach($statut as $s)
-                                                        <option value="{{$s}}">{{$s}}</option>
+                                                        <option value="{{ $s }}">{{ $s }}</option>
                                                     @endforeach
-
                                                 </select>
-                                                <button type="submit" class="btn btn-sm btn-primary mt-2">MAJ
-                                                </button>
+                                                <button type="submit" class="btn btn-sm btn-primary mt-2">MAJ</button>
                                             </form>
                                         </td>
                                         <td>
-                                            <div class="ya-taxi-widget "
-                                                 data-ref="MPREW"
-                                                 data-clid="ak240826"
-                                                 data-apikey="xDOfBYEceqUpxtUYPGGhpYHDeWcjEpdsAC"
-                                                 data-theme="dark"
-                                                 data-size="xs"
-                                                 data-title="Livrer robe"
-                                                 data-use-location="true"
-                                                 data-app="2187871"
-                                                 data-point-b="{{ $longitude }},{{ $latitude }}"
-                                                 data-proxy-url="https://yango.go.link/route?start-lat={start-lat}&start-lon={start-lon}&end-lat={end-lat}&end-lon={end-lon}&adj_adgroup=widget&ref={ref}&adj_t=vokme8e_nd9s9z9&lang=ru&adj_deeplink_js=1&utm_source=widget&adj_fallback=https%3A%2F%2Fyango.com%2Fen_int%2Forder%2F%3Fgfrom%3D{start-lon}%2C{start-lat}%26gto%3D{end-lon}%2C{end-lat}%26ref%3D{ref}"
-                                                 data-lang="fr">
-                                            </div>
+                                            @if(isset($coordinates[$index]))
+                                                <div class="ya-taxi-widget"
+                                                     data-ref="MPREW"
+                                                     data-clid="ak240826"
+                                                     data-apikey="xDOfBYEceqUpxtUYPGGhpYHDeWcjEpdsAC"
+                                                     data-theme="dark"
+                                                     data-size="xs"
+                                                     data-title="Livrer robe"
+                                                     data-use-location="true"
+                                                     data-app="2187871"
+                                                     data-point-b="{{ $coordinates[$index]['longitude'] }},{{ $coordinates[$index]['latitude'] }}"
+                                                     data-proxy-url="https://yango.go.link/route?start-lat={start-lat}&start-lon={start-lon}&end-lat={end-lat}&end-lon={end-lon}&adj_adgroup=widget&ref={ref}&adj_t=vokme8e_nd9s9z9&lang=ru&adj_deeplink_js=1&utm_source=widget&adj_fallback=https%3A%2F%2Fyango.com%2Fen_int%2Forder%2F%3Fgfrom%3D{start-lon}%2C{start-lat}%26gto%3D{end-lon}%2C{end-lat}%26ref%3D{ref}"
+                                                     data-lang="fr">
+                                                </div>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

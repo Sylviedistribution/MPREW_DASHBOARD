@@ -63,25 +63,35 @@ class CommandeController extends Controller
         $commandesList = Commandes::where('artisanId', $artisanId)->get();
 
         $statut = Commandes::getStatuts();
-        // Retourner la vue avec les commandes mises à jour
 
-        // L'adresse à géocoder
-        $adresse = Commandes::with('client: adresse');
+        // Tableau pour stocker les coordonnées de chaque commande
+        $coordinates = [];
 
-        // Appeler l'API de géocodage pour obtenir les coordonnées
-        $response = Http::get('https://api.distancematrix.ai/maps/api/geocode/json', [
-            'address' => $adresse,
-            'key' => 'PDEdeRW6YJORMRgcPMlmoNB7istj2kJLg2PGrEhGZGCjvdux8St5jJFvzRDS1CNh'
-        ]);
+        // Parcourir les commandes pour obtenir les coordonnées
+        foreach ($commandesList as $commande) {
+            $adresse = $commande->client->adresse; // Récupérer l'adresse du client
 
-        $data = $response->json();
+            // Appeler l'API de géocodage pour obtenir les coordonnées
+            $response = Http::get('https://api.distancematrix.ai/maps/api/geocode/json', [
+                'address' => $adresse,
+                'key' => 'PDEdeRW6YJORMRgcPMlmoNB7istj2kJLg2PGrEhGZGCjvdux8St5jJFvzRDS1CNh'
+            ]);
 
-        // Extraire la latitude et la longitude de la réponse
-        $latitude = $data['results'][0]['geometry']['location']['lat'] ?? null;
-        $longitude = $data['results'][0]['geometry']['location']['lng'] ?? null;
+            $data = $response->json();
 
-        // Passer les coordonnées à la vue
-        return view('commandes/mesCommandes', compact('commandesList','statut','latitude', 'longitude'))->with('success', 'Commande validée avec succès.');
+            // Extraire la latitude et la longitude de la réponse
+            $latitude = $data['results'][0]['geometry']['location']['lat'] ?? null;
+            $longitude = $data['results'][0]['geometry']['location']['lng'] ?? null;
+
+            // Ajouter les coordonnées à un tableau
+            $coordinates[] = [
+                'latitude' => $latitude,
+                'longitude' => $longitude,
+            ];
+        }
+
+        // Passer les commandes et les coordonnées à la vue
+        return view('commandes/mesCommandes', compact('commandesList', 'statut', 'coordinates'))->with('success', 'Commande validée avec succès.');
     }
 
 
