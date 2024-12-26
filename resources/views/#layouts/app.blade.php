@@ -15,6 +15,7 @@
     <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-icons.css" rel="stylesheet"/>
     <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-svg.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- CSS Files -->
     <style>
@@ -88,5 +89,15 @@
 <script src="{{asset("assets/js/plugins/perfect-scrollbar.min.js")}}"></script>
 <script src="{{asset("assets/js/plugins/smooth-scrollbar.min.js")}}"></script>
 <script src="{{asset("assets/js/plugins/chartjs.min.js")}}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.navbar-toggler').click(function () {
+            $('#sidenav-main').toggleClass('show');
+        });
+    });
+</script>
 </body>
 </html>
