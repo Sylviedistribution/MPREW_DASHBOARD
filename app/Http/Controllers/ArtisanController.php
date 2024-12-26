@@ -65,9 +65,6 @@ class ArtisanController extends Controller
         // Utilisez la méthode update pour mettre à jour le modèle directement
         $artisan->update($request->all());
 
-        Mail::to($request->email)->send(new TestEmail());
-
-
         return redirect()->route('artisans.list')
             ->with('success', "L'artisan avec l'ID " . $artisan->id . "a été mis à jour avec succès.");
     }
