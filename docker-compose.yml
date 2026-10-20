@@ -1,0 +1,46 @@
+# Environnement local : reproduit la production avec une base MySQL dans un conteneur.
+# Lancement : docker compose up --build
+# Le mot de passe par défaut ne sert qu'en local. Définissez DB_PASSWORD dans votre shell pour le changer.
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:10000"
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_KEY: ${APP_KEY:?Définissez APP_KEY (php artisan key:generate --show)}
+      APP_URL: http://localhost:8080
+      LOG_CHANNEL: stderr
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: "3306"
+      DB_DATABASE: ma_petite_robe_en_wax
+      DB_USERNAME: mprew
+      DB_PASSWORD: ${DB_PASSWORD:-local-only-change-me}
+      SESSION_DRIVER: file
+      CACHE_DRIVER: file
+      QUEUE_CONNECTION: sync
+      MAIL_MAILER: log
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: ma_petite_robe_en_wax
+      MYSQL_USER: mprew
+      MYSQL_PASSWORD: ${DB_PASSWORD:-local-only-change-me}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root-local-only}
+    volumes:
+      - db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASSWORD:-root-local-only}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  db-data:
